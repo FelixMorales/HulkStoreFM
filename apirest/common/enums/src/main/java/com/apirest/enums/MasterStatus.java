@@ -11,8 +11,9 @@ import java.util.HashMap;
  */
 public enum MasterStatus
 {
-    INACTIVE( 0 ),
-    ACTIVE( 1 );
+    UNDEFINED( 0 ),
+    ACTIVE( 1 ),
+    INACTIVE( 2 );
 
     private int _value;
     private static HashMap<Integer, MasterStatus> _map = new HashMap<>();

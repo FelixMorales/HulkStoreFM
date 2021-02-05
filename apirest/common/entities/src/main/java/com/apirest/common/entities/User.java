@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -36,6 +38,22 @@ public class User extends BaseEntity
     @ManyToOne
     @JoinColumn( name = "idCountry", nullable = false )
     private Country _country;
+
+    @OneToMany( mappedBy = "_user" )
+    private List<CartShopItems> _cartShopItems;
+
+    @OneToMany( mappedBy = "_user" )
+    private List<Purchase> _purchases;
+
+    public List<CartShopItems> getCartShopItems()
+    {
+        return _cartShopItems;
+    }
+
+    public void setCartShopItems( List<CartShopItems> cartShopItems )
+    {
+        _cartShopItems = cartShopItems;
+    }
 
     public String getName()
     {
@@ -105,6 +123,16 @@ public class User extends BaseEntity
     public void setRegisterDate( LocalDate registerDate )
     {
         _registerDate = registerDate;
+    }
+
+    public List<Purchase> getPurchases()
+    {
+        return _purchases;
+    }
+
+    public void setPurchases( List<Purchase> purchases )
+    {
+        _purchases = purchases;
     }
 
     public User()

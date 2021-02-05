@@ -40,6 +40,10 @@ public class Product extends BaseEntity
     @JoinColumn( name = "idProductType", nullable = false )
     private ProductType _productType;
 
+    @ManyToOne
+    @JoinColumn( name = "idBrand", nullable = false )
+    private Brand _brand;
+
     @Enumerated
     @Column( name = "status", nullable = false )
     private MasterStatus _status;
@@ -104,6 +108,16 @@ public class Product extends BaseEntity
         _status = status;
     }
 
+    public Brand getBrand()
+    {
+        return _brand;
+    }
+
+    public void setBrand( Brand brand )
+    {
+        _brand = brand;
+    }
+
     public Product()
     {
     }
@@ -131,13 +145,14 @@ public class Product extends BaseEntity
         Product product = ( Product ) o;
         return _name.equals( product._name ) && _code.equals( product._code ) &&
                _registerDate.equals( product._registerDate ) && _hero.equals( product._hero ) &&
-               _productType.equals( product._productType ) && _status == product._status;
+               _productType.equals( product._productType ) && _brand.equals( product._brand ) &&
+               _status == product._status;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash( super.hashCode(), _name, _code, _registerDate, _hero, _productType, _status );
+        return Objects.hash( super.hashCode(), _name, _code, _registerDate, _hero, _productType, _brand, _status );
     }
 
     @Override
@@ -150,6 +165,7 @@ public class Product extends BaseEntity
         sb.append( ", _registerDate='" ).append( _registerDate );
         sb.append( ", _hero='" ).append( _hero );
         sb.append( ", _productType='" ).append( _productType );
+        sb.append( ", _brand='" ).append( _brand );
         sb.append( ", _status='" ).append( _status );
         sb.append( '}' );
         return sb.toString();

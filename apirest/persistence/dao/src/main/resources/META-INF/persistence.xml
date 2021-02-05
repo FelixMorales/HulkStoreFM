@@ -4,9 +4,27 @@
 
     <persistence-unit name="todo1-unit" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.apirest.common.entities.Gender</class>
+        <class>com.apirest.common.entities.Accessories</class>
+        <class>com.apirest.common.entities.AccessoryType</class>
+        <class>com.apirest.common.entities.Brand</class>
+        <class>com.apirest.common.entities.CartShopItems</class>
+        <class>com.apirest.common.entities.Clothes</class>
+        <class>com.apirest.common.entities.ClothesSize</class>
+        <class>com.apirest.common.entities.ClothesType</class>
         <class>com.apirest.common.entities.Country</class>
+        <class>com.apirest.common.entities.Gender</class>
+        <class>com.apirest.common.entities.Hero</class>
+        <class>com.apirest.common.entities.Inventory</class>
+        <class>com.apirest.common.entities.MaterialType</class>
+        <class>com.apirest.common.entities.Product</class>
+        <class>com.apirest.common.entities.ProductType</class>
+        <class>com.apirest.common.entities.Purchase</class>
+        <class>com.apirest.common.entities.PurchaseDetail</class>
+        <class>com.apirest.common.entities.Toy</class>
+        <class>com.apirest.common.entities.ToyType</class>
         <class>com.apirest.common.entities.User</class>
+        <class>com.apirest.common.entities.Utensil</class>
+        <class>com.apirest.common.entities.UtensilType</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
