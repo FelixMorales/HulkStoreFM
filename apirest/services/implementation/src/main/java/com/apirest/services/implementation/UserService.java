@@ -60,7 +60,7 @@ public class UserService extends BaseApplicationService
         //endregion
     }
 
-    @GET
+    @POST
     @Path("/authenticate")
     public UserDTO Authenticate( UserDTO user )
     {
