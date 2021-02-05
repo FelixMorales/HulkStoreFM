@@ -1,7 +1,5 @@
 package com.apirest.common.entities;
 
-import com.apirest.common.BaseEntity;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

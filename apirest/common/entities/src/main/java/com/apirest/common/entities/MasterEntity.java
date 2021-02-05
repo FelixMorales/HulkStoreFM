@@ -1,6 +1,5 @@
 package com.apirest.common.entities;
 
-import com.apirest.common.BaseEntity;
 import com.apirest.enums.MasterStatus;
 
 import javax.persistence.Column;

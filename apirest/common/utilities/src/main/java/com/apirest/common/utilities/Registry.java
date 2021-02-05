@@ -11,6 +11,9 @@ public class Registry
 
     public static final String CLIENT_SALT = "web.salt";
 
+    public static final String SEC_SALT_LENGTH = "sec.saltLength";
+    public static final String SEC_ENCRYPT_ALGORITHM = "sec.algorithm";
+
     private static final String PROPERTIES_FILE = "apirest.properties";
 
     private static Registry _instance;

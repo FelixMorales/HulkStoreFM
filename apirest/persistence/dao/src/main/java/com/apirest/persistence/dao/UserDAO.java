@@ -1,12 +1,15 @@
 package com.apirest.persistence.dao;
 
 import com.apirest.common.entities.User;
+import com.apirest.common.exceptions.jpa.FindException;
+import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.persistence.DBHandler;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -23,9 +26,20 @@ public class UserDAO extends BaseDAO<User>
         _builder = _em.getCriteriaBuilder();
     }
 
-    public List<User> find( )
+    /**
+     * Name: findByEmail
+     * Description: Metodo que retorna el usuario encrontado por email
+     *
+     * @param user Username
+     * @return UserPassword y User object
+     */
+    public User findByEmail( User user )
     {
-        List<User> result = null;
+        User result;
+
+        //region Instrumentation
+        //_logger.debug( "Entrando a UserDao.findByEmail user {}", user );
+        //endregion
 
         try
         {
@@ -33,25 +47,24 @@ public class UserDAO extends BaseDAO<User>
             Root<User> root = query.from( User.class );
 
             query.select( root );
+            query.where( _builder.equal( root.get( "_email" ), user.getEmail() ) );
 
-            result = _em.createQuery( query ).getResultList();
+            result = _em.createQuery( query ).getSingleResult();
         }
         catch ( NoResultException e )
         {
-            throw e;
-            //throw new NotFoundException( e, e.getMessage() );
+            throw new NotFoundException( e, e.getMessage() );
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new FindException( e, e.getMessage() );
+            throw new FindException( e, e.getMessage() );
         }
+
+        //region Instrumentation
+        //_logger.debug( "Saliendo de UserDao.findByEmail result {}", result );
+        //endregion
 
         return result;
     }
 
-    public void addUser (User user)
-    {
-        insert( user );
-    }
 }

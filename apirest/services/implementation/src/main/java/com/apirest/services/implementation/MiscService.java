@@ -1,11 +1,8 @@
 package com.apirest.services.implementation;
 
 import com.apirest.common.entities.Gender;
-import com.apirest.common.entities.User;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.misc.GetGendersCommand;
-import com.apirest.logic.commands.user.AddUserCommand;
-import com.apirest.logic.commands.user.GetUsersCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;

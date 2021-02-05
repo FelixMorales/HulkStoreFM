@@ -3,40 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>persistence</artifactId>
+        <artifactId>logic</artifactId>
         <groupId>com.todo1.apirest</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dao</artifactId>
-    <version>1.0</version>
+    <artifactId>mappers</artifactId>
     <packaging>jar</packaging>
-
-    <name>apirest.persistence.dao</name>
+    <version>1.0</version>
 
     <dependencies>
+        <dependency>
+            <groupId>com.todo1.apirest</groupId>
+            <artifactId>dto</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>com.todo1.apirest</groupId>
             <artifactId>entities</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.todo1.apirest</groupId>
-            <artifactId>exceptions</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.3.7.Final</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.4.0</version>
-        </dependency>
     </dependencies>
+
 
 </project>

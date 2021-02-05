@@ -19,6 +19,7 @@
         <module>utilities</module>
         <module>entities</module>
         <module>enums</module>
+        <module>exceptions</module>
     </modules>
 
 

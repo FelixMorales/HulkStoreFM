@@ -37,6 +37,7 @@ public class JWT
         }
         catch( Exception e )
         {
+            throw e;
             //throw new JWTSetKeyException( e, e.getMessage() );
         }
 
@@ -78,6 +79,7 @@ public class JWT
         }
         catch ( Exception e )
         {
+            throw e;
             //throw new JWTCreateException( e, e.getMessage() );
         }
 
@@ -112,6 +114,8 @@ public class JWT
         catch ( Exception e )
         {
             //_logger.error( e.getMessage(), e );
+
+            throw e;
             //throw new JWTVerifyException( e, e.getMessage() );
         }
 
@@ -140,6 +144,8 @@ public class JWT
         catch ( Exception e )
         {
             //_logger.error( e.getMessage(), e );
+
+            throw e;
             //throw new JWTVerifyException( e, e.getMessage() );
         }
 

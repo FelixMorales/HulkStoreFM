@@ -1,9 +1,12 @@
 package com.apirest.common.entities;
 
-import com.apirest.common.BaseEntity;
+import com.apirest.enums.MasterStatus;
+import com.apirest.enums.PurchaseStatus;
+import com.apirest.enums.UserType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -25,8 +28,11 @@ public class User extends BaseEntity
     @Column( name = "email", nullable = false, unique = true )
     private String _email;
 
-    @Column( name = "password", nullable = false )
+    @Column( name = "password", length = 512, nullable = false )
     private String _password;
+
+    @Column( name = "SALT", length = 512 )
+    private String _salt;
 
     @Column( name = "registerdate", nullable = false )
     private LocalDate _registerDate;
@@ -44,6 +50,14 @@ public class User extends BaseEntity
 
     @OneToMany( mappedBy = "_user" )
     private List<Purchase> _purchases;
+
+    @Enumerated
+    @Column( name = "status", nullable = false )
+    private MasterStatus _status;
+
+    @Enumerated
+    @Column( name = "type", nullable = false )
+    private UserType _type;
 
     public List<CartShopItems> getCartShopItems()
     {
@@ -72,7 +86,7 @@ public class User extends BaseEntity
 
     public void setLastName( String lastName )
     {
-        _lastName = _lastName;
+        _lastName = lastName;
     }
 
     public String getEmail()
@@ -135,6 +149,36 @@ public class User extends BaseEntity
         _purchases = purchases;
     }
 
+    public MasterStatus getStatus()
+    {
+        return _status;
+    }
+
+    public void setStatus( MasterStatus status )
+    {
+        _status = status;
+    }
+
+    public UserType getType()
+    {
+        return _type;
+    }
+
+    public void setType( UserType type )
+    {
+        _type = type;
+    }
+
+    public String getSalt()
+    {
+        return _salt;
+    }
+
+    public void setSalt( String salt )
+    {
+        _salt = salt;
+    }
+
     public User()
     {
     }
@@ -160,17 +204,18 @@ public class User extends BaseEntity
             return false;
         }
         User user = ( User ) o;
-        return Objects.equals( _name, user._name ) && Objects.equals( _lastName, user._lastName ) &&
-               Objects.equals( _registerDate, user._registerDate ) &&
-               Objects.equals( _email, user._email ) &&
-               Objects.equals( _gender, user._gender ) && Objects.equals( _country, user._country );
+        return _name.equals( user._name ) && _lastName.equals( user._lastName ) && _email.equals( user._email ) &&
+               _password.equals( user._password ) && Objects.equals( _salt, user._salt ) &&
+               _registerDate.equals( user._registerDate ) && _gender.equals( user._gender ) &&
+               _country.equals( user._country ) && _status == user._status && _type == user._type;
     }
 
     @Override
     public int hashCode()
     {
         return Objects
-                .hash( super.hashCode(), _name, _lastName, _email, _gender, _country, _registerDate, _password );
+                .hash( super.hashCode(), _name, _lastName, _email, _password, _salt, _registerDate, _gender, _country,
+                       _status, _type );
     }
 
     @Override
@@ -181,9 +226,10 @@ public class User extends BaseEntity
         sb.append( ", _name='" ).append( _name );
         sb.append( ", _lastname='" ).append( _lastName );
         sb.append( ", _email='" ).append( _email );
-        sb.append( ", _password='" ).append( _password );
         sb.append( ", _gender='" ).append( _gender );
         sb.append( ", _country='" ).append( _country );
+        sb.append( ", _status='" ).append( _status );
+        sb.append( ", _type='" ).append( _type );
         sb.append( ", _registerDate='" ).append( _registerDate );
         sb.append( '}' );
         return sb.toString();

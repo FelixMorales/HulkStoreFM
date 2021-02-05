@@ -17,6 +17,16 @@
     <dependencies>
         <dependency>
             <groupId>com.todo1.apirest</groupId>
+            <artifactId>dto</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.todo1.apirest</groupId>
+            <artifactId>mappers</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.todo1.apirest</groupId>
             <artifactId>utilities</artifactId>
             <version>1.0</version>
         </dependency>
