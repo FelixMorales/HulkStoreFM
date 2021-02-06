@@ -2,6 +2,7 @@ package com.apirest.common.entities;
 
 import com.apirest.enums.PurchaseStatus;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -42,7 +43,7 @@ public class Purchase extends BaseEntity
     @Column( name = "status", nullable = false )
     private PurchaseStatus _status;
 
-    @OneToMany( mappedBy = "_purchase", fetch = FetchType.LAZY )
+    @OneToMany( mappedBy = "_purchase", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST )
     private List<PurchaseDetail> _purchaseDetailList;
 
     public User getUser()

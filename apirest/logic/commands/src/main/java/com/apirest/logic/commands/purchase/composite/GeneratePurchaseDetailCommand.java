@@ -12,6 +12,7 @@ import com.apirest.enums.PurchaseStatus;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
 import com.apirest.persistence.DAOFactory;
+import com.apirest.persistence.DBHandler;
 import com.apirest.persistence.dao.InventoryDAO;
 
 import java.time.LocalDate;
@@ -22,29 +23,46 @@ import java.util.List;
  * Name: GetCartShopItemsByUser
  * Description: Comando encargado de generar el detalle de compra antes de ejecutar la misma.
  */
-public class GeneratePurchaseDetail extends Command<Purchase>
+public class GeneratePurchaseDetailCommand extends Command<Purchase>
 {
     private Purchase _result;
     private User _user;
-    private InventoryDAO _inventoryDAO;
+    private DBHandler _handler;
 
     private Command<List<ShopCartItem>> _getShopCartItems;
+    private Command<List<Inventory>> _getProductStock;
 
-    public GeneratePurchaseDetail( User user )
+    public GeneratePurchaseDetailCommand( User user )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a AddUserClientCommand.CTOR: entity {}", entity );
+        //_logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: entity {}", entity );
         //endregion
 
         createSession( false );
 
+        _handler = getHandler();
         _user = user;
-        _inventoryDAO = DAOFactory.createInventoryDAO( getHandler() );
-        _getShopCartItems = CommandFactory.createGetShopCartItemsByUser( _user, getHandler() );
+        _getShopCartItems = CommandFactory.createGetShopCartItemsByUserCommand( _user, _handler );
         _result = EntityFactory.createPurchase();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de AddUserClientCommand.CTOR: _dao {}", _dao );
+        //_logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR: _dao {}", _dao );
+        //endregion
+    }
+
+    public GeneratePurchaseDetailCommand( User user, DBHandler handler )
+    {
+        //region Instrumentation DEBUG
+        //_logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: entity {}", entity );
+        //endregion
+
+        _user = user;
+        _handler = handler;
+        _getShopCartItems = CommandFactory.createGetShopCartItemsByUserCommand( _user, _handler );
+        _result = EntityFactory.createPurchase();
+
+        //region Instrumentation DEBUG
+        //_logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -52,7 +70,7 @@ public class GeneratePurchaseDetail extends Command<Purchase>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a AddUserClientCommand.execute" );
+        //_logger.debug( "Entrando a GeneratePurchaseDetailCommand.execute" );
         //endregion
 
         _getShopCartItems.execute();
@@ -68,23 +86,23 @@ public class GeneratePurchaseDetail extends Command<Purchase>
 
         for( ShopCartItem item : items )
         {
-            List<Inventory> stockItems = _inventoryDAO.findAvailableProductStock( item.getProduct() );
-
-            if ( stockItems == null || stockItems.isEmpty() )
-                throw new EmptyStockException();
-
-            generatePurchaseDetail( stockItems, item );
+            _getProductStock = CommandFactory.createGetAvailableProductStockCommand( item.getProduct(), _handler );
+            _getProductStock.execute();
+            generatePurchaseDetail( _getProductStock.getReturnParam(), item );
         }
 
         generatePurchasePrice();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de AddUserClientCommand.execute" );
+        //_logger.debug( "Saliendo de GeneratePurchaseDetailCommand.execute" );
         //endregion
     }
 
     private void generatePurchaseDetail( List<Inventory> stockItems, ShopCartItem shopCartItem )
     {
+        if ( stockItems == null || stockItems.isEmpty() )
+            throw new EmptyStockException();
+
         int remainingItems = shopCartItem.getQuantity();
 
         for( Inventory stockItem : stockItems )

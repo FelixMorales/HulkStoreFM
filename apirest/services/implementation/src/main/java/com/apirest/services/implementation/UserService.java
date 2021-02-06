@@ -7,6 +7,7 @@ import com.apirest.common.exceptions.jpa.ConstraintException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.common.exceptions.purchase.EmptyShopCartException;
 import com.apirest.common.exceptions.purchase.EmptyStockException;
+import com.apirest.common.exceptions.purchase.OutdatedPurchaseException;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
 import com.apirest.logic.dto.PurchaseDTO;
@@ -163,7 +164,7 @@ public class UserService extends BaseApplicationService
         try
         {
             entity = UserMapper.mapDtoToEntity( user );
-            command = CommandFactory.createGetShopCartItemsByUser( entity );
+            command = CommandFactory.createGetShopCartItemsByUserCommand( entity );
             command.execute();
             command.closeSession();
 
@@ -200,11 +201,59 @@ public class UserService extends BaseApplicationService
         try
         {
             entity = UserMapper.mapDtoToEntity( user );
-            command = CommandFactory.createGeneratePurchaseDetail( entity );
+            command = CommandFactory.createGeneratePurchaseDetailCommand( entity );
             command.execute();
             command.closeSession();
 
             response = PurchaseMapper.mapEntityToDto( command.getReturnParam() );
+        }
+        catch ( EmptyStockException | EmptyShopCartException e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.PRECONDITION_FAILED, e );
+        }
+        catch ( Exception e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
+        }
+
+        //region Instrumentation
+        //_logger.debug( "saliendo de supplyInventory" );
+        //endregion
+
+        return response;
+    }
+
+    @POST
+    @Path("/executePurchase")
+    public PurchaseDTO executePurchase( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
+            PurchaseDTO purchase )
+    {
+        //region Instrumentation
+        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        //endregion
+
+        Purchase entity;
+        PurchaseDTO response  = null;
+        Command<Purchase> command;
+
+        verifyParams( purchase );
+        verifyToken( credential );
+
+        try
+        {
+            entity = PurchaseMapper.mapDtoToEntity( purchase );
+            command = CommandFactory.createExecutePurchaseCommand( entity );
+            command.execute();
+            command.closeSession();
+
+            response = PurchaseMapper.mapEntityToDto( command.getReturnParam() );
+        }
+        catch ( OutdatedPurchaseException e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.EXPECTATION_FAILED, e );
         }
         catch ( EmptyStockException | EmptyShopCartException e )
         {

@@ -2,6 +2,8 @@ package com.apirest.persistence;
 
 import com.apirest.persistence.dao.AccessoryTypeDAO;
 import com.apirest.persistence.dao.BrandDAO;
+import com.apirest.persistence.dao.PurchaseDAO;
+import com.apirest.persistence.dao.PurchaseDetailDAO;
 import com.apirest.persistence.dao.ShopCartItemDAO;
 import com.apirest.persistence.dao.ClothesDAO;
 import com.apirest.persistence.dao.ClothesSizeDAO;
@@ -97,5 +99,15 @@ public class DAOFactory
     public static ShopCartItemDAO createShopCartItemDAO(DBHandler handler)
     {
         return new ShopCartItemDAO( handler );
+    }
+
+    public static PurchaseDAO createPurchaseDAO(DBHandler handler)
+    {
+        return new PurchaseDAO( handler );
+    }
+
+    public static PurchaseDetailDAO createPurchaseDetailDAO(DBHandler handler)
+    {
+        return new PurchaseDetailDAO( handler );
     }
 }

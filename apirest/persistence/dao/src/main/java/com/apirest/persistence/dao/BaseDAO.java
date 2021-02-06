@@ -177,7 +177,7 @@ public abstract class BaseDAO<T>
      *
      * @param id identifier
      */
-    public T find( long id )
+    public T find( int id )
     {
         T result = null;
 

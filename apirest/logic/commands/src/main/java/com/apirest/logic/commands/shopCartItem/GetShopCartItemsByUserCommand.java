@@ -13,13 +13,13 @@ import java.util.List;
  * Name: GetCartShopItemsByUser
  * Description: Comando encargado de consultar los items del carrito de un usuario.
  */
-public class GetShopCartItemsByUser extends Command<List<ShopCartItem>>
+public class GetShopCartItemsByUserCommand extends Command<List<ShopCartItem>>
 {
     private User _user;
     private ShopCartItemDAO _dao;
     private List<ShopCartItem> _result;
 
-    public GetShopCartItemsByUser( User user )
+    public GetShopCartItemsByUserCommand( User user )
     {
         //region Instrumentation DEBUG
         //_logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
@@ -35,7 +35,7 @@ public class GetShopCartItemsByUser extends Command<List<ShopCartItem>>
         //endregion
     }
 
-    public GetShopCartItemsByUser( User user, DBHandler handler )
+    public GetShopCartItemsByUserCommand( User user, DBHandler handler )
     {
         //region Instrumentation DEBUG
         //_logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
