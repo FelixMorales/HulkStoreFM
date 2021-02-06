@@ -1,9 +1,9 @@
-package com.apirest.logic.commands.cartShopItem;
+package com.apirest.logic.commands.shopCartItem;
 
-import com.apirest.common.entities.CartShopItem;
+import com.apirest.common.entities.ShopCartItem;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
-import com.apirest.persistence.dao.CartShopItemDAO;
+import com.apirest.persistence.dao.ShopCartItemDAO;
 
 import java.time.LocalDate;
 
@@ -11,12 +11,12 @@ import java.time.LocalDate;
  * Name: GetCartShopItemsByUser
  * Description: Comando encargado de consultar agregar un item al carrito de un usuario.
  */
-public class AddCartShopItemCommand extends Command<Boolean>
+public class AddShopCartItemCommand extends Command<Boolean>
 {
-    private CartShopItem _cartShopItem;
-    private CartShopItemDAO _dao;
+    private ShopCartItem _shopCartItem;
+    private ShopCartItemDAO _dao;
 
-    public AddCartShopItemCommand( CartShopItem cartShopItem )
+    public AddShopCartItemCommand( ShopCartItem shopCartItem )
     {
         //region Instrumentation DEBUG
         //_logger.debug( "entrando a AddCartShopItemCommand.CTOR: entity {}", cartShopItem );
@@ -24,8 +24,8 @@ public class AddCartShopItemCommand extends Command<Boolean>
 
         createSession( true );
 
-        _cartShopItem = cartShopItem;
-        _dao = DAOFactory.createCartShopItemDAO( getHandler() );
+        _shopCartItem = shopCartItem;
+        _dao = DAOFactory.createShopCartItemDAO( getHandler() );
 
         //region Instrumentation DEBUG
         //_logger.debug( "saliendo de AddCartShopItemCommand.CTOR: _dao {}", _dao );
@@ -39,8 +39,8 @@ public class AddCartShopItemCommand extends Command<Boolean>
         //_logger.debug( "Entrando a AddUserClientCommand.execute" );
         //endregion
 
-        _cartShopItem.setRegisterDate( LocalDate.now() );
-        _dao.insert( _cartShopItem );
+        _shopCartItem.setRegisterDate( LocalDate.now() );
+        _dao.insert( _shopCartItem );
 
         //region Instrumentation DEBUG
         //_logger.debug( "Saliendo de AddUserClientCommand.execute" );

@@ -47,7 +47,7 @@ public class User extends BaseEntity
     private Country _country;
 
     @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
-    private List<CartShopItem> _cartShopItems;
+    private List<ShopCartItem> _shopCartItems;
 
     @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
     private List<Purchase> _purchases;
@@ -63,14 +63,14 @@ public class User extends BaseEntity
     @Transient
     private String _token;
 
-    public List<CartShopItem> getCartShopItems()
+    public List<ShopCartItem> getShopCartItems()
     {
-        return _cartShopItems;
+        return _shopCartItems;
     }
 
-    public void setCartShopItems( List<CartShopItem> cartShopItems )
+    public void setShopCartItems( List<ShopCartItem> shopCartItems )
     {
-        _cartShopItems = cartShopItems;
+        _shopCartItems = shopCartItems;
     }
 
     public String getName()

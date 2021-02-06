@@ -60,10 +60,16 @@ public class UserMapper
         dto._email = entity.getEmail();
         dto._type = entity.getType().getValue();
         dto._status = entity.getStatus().getValue();
-        dto._country = MasterMapper.mapEntityToDTO( entity.getCountry() );
-        dto._gender = MasterMapper.mapEntityToDTO( entity.getGender() );
-        dto._registerDate = entity.getRegisterDate().toString();
         dto._token = entity.getToken();
+
+        if ( entity.getCountry() != null )
+            dto._country = MasterMapper.mapEntityToDTO( entity.getCountry() );
+
+        if ( entity.getGender() != null )
+            dto._gender = MasterMapper.mapEntityToDTO( entity.getGender() );
+
+        if (entity.getRegisterDate() != null )
+            dto._registerDate = entity.getRegisterDate().toString();
 
         //region Instrumentation DEBUG
         //_logger.debug( "Saliendo de UserMapper.mapEntityToDto: dto {}", dto );

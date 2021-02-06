@@ -1,6 +1,6 @@
 package com.apirest.logic.dto;
 
-public class CartShopItemDTO
+public class ShopCartItemDTO
 {
     public int _id;
     public ProductDTO _product;
@@ -11,7 +11,7 @@ public class CartShopItemDTO
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder( "CartShopItemDTO{" );
+        final StringBuilder sb = new StringBuilder( "ShopCartItemDTO{" );
         sb.append( "_id=" ).append( _id );
         sb.append( "_product=" ).append( _product );
         sb.append( "_user=" ).append( _user );

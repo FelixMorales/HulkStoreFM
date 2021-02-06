@@ -7,7 +7,7 @@
         <class>com.apirest.common.entities.Accessories</class>
         <class>com.apirest.common.entities.AccessoryType</class>
         <class>com.apirest.common.entities.Brand</class>
-        <class>com.apirest.common.entities.CartShopItem</class>
+        <class>com.apirest.common.entities.ShopCartItem</class>
         <class>com.apirest.common.entities.Clothes</class>
         <class>com.apirest.common.entities.ClothesSize</class>
         <class>com.apirest.common.entities.ClothesType</class>

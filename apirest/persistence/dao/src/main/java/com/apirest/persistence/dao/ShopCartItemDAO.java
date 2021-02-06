@@ -1,26 +1,22 @@
 package com.apirest.persistence.dao;
 
-import com.apirest.common.entities.CartShopItem;
+import com.apirest.common.entities.ShopCartItem;
 import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.jpa.FindAllException;
-import com.apirest.common.exceptions.jpa.FindException;
-import com.apirest.common.exceptions.jpa.NotFoundException;
-import com.apirest.enums.MasterStatus;
 import com.apirest.persistence.DBHandler;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class CartShopItemDAO extends BaseDAO<CartShopItem>
+public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
 
-    public CartShopItemDAO( DBHandler handler )
+    public ShopCartItemDAO( DBHandler handler )
     {
         super( handler );
 
@@ -34,18 +30,18 @@ public class CartShopItemDAO extends BaseDAO<CartShopItem>
      *
      * @return Lista de objeto Hero
      */
-    public List<CartShopItem> findByUser( User user )
+    public List<ShopCartItem> findByUser( User user )
     {
-        List<CartShopItem> result;
+        List<ShopCartItem> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a HeroDAO.findActives");
+        //_logger.debug( "Entrando a ShopCartItemDAO.findByUser");
         //endregion
 
         try
         {
-            CriteriaQuery<CartShopItem> query = _builder.createQuery( CartShopItem.class );
-            Root<CartShopItem> root = query.from( CartShopItem.class );
+            CriteriaQuery<ShopCartItem> query = _builder.createQuery( ShopCartItem.class );
+            Root<ShopCartItem> root = query.from( ShopCartItem.class );
 
             query.select( root );
             query.where( _builder.equal( root.get( "_user" ), user.getId() ) );
@@ -58,7 +54,7 @@ public class CartShopItemDAO extends BaseDAO<CartShopItem>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de HeroDAO.findActives result {}", result );
+        //_logger.debug( "Saliendo de ShopCartItemDAO.findByUser result {}", result );
         //endregion
 
         return result;

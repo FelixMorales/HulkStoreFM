@@ -35,6 +35,9 @@ public class Inventory extends BaseEntity
     @Column( name = "registerDate", nullable = false)
     private LocalDateTime _registerDate;
 
+    @Column( name = "supplyDate", nullable = false)
+    private LocalDateTime _supplyDate;
+
     @Enumerated
     @Column( name = "status", nullable = false )
     private MasterStatus _status;
@@ -99,6 +102,16 @@ public class Inventory extends BaseEntity
         _status = status;
     }
 
+    public LocalDateTime getSupplyDate()
+    {
+        return _supplyDate;
+    }
+
+    public void setSupplyDate( LocalDateTime supplyDate )
+    {
+        _supplyDate = supplyDate;
+    }
+
     public Inventory()
     {
     }
@@ -126,14 +139,15 @@ public class Inventory extends BaseEntity
         Inventory inventory = ( Inventory ) o;
         return _quantity == inventory._quantity && Double.compare( inventory._unitPrice, _unitPrice ) == 0 &&
                _quantityAvailable == inventory._quantityAvailable && _product.equals( inventory._product ) &&
-               _registerDate.equals( inventory._registerDate ) && _status == inventory._status;
+               _registerDate.equals( inventory._registerDate ) && _supplyDate.equals( inventory._supplyDate ) &&
+               _status == inventory._status;
     }
 
     @Override
     public int hashCode()
     {
-        return Objects
-                .hash( super.hashCode(), _product, _quantity, _unitPrice, _quantityAvailable, _registerDate, _status );
+        return Objects.hash( super.hashCode(), _product, _quantity, _unitPrice, _quantityAvailable, _registerDate,
+                             _supplyDate, _status );
     }
 
     @Override
@@ -147,6 +161,7 @@ public class Inventory extends BaseEntity
         sb.append( ", _quantityAvailable='" ).append( _quantityAvailable );
         sb.append( ", _status='" ).append( _status );
         sb.append( ", _registerDate='" ).append( _registerDate );
+        sb.append( ", _supplyDate='" ).append( _supplyDate );
         sb.append( '}' );
         return sb.toString();
     }

@@ -9,6 +9,7 @@ public class InventoryDTO
     public double _unitPrice;
     public int _status;
     public String _registerDate;
+    public String _supplyDate;
 
 
     @Override
@@ -22,6 +23,7 @@ public class InventoryDTO
         sb.append( "_registerDate=" ).append( _registerDate );
         sb.append( "_status=" ).append( _status );
         sb.append( "_unitPrice" ).append( _unitPrice );
+        sb.append( "_supplyDate" ).append( _supplyDate );
         sb.append( "_registerDate=" ).append( _registerDate );
         sb.append( '}' );
         return sb.toString();

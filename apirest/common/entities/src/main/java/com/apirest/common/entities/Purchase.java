@@ -35,9 +35,6 @@ public class Purchase extends BaseEntity
     @Column( name = "netPrice", nullable = false )
     private double _netPrice;
 
-    @Column( name = "discount" )
-    private double _discount;
-
     @Column( name = "tax" )
     private double _tax;
 
@@ -86,16 +83,6 @@ public class Purchase extends BaseEntity
     public void setNetPrice( double netPrice )
     {
         _netPrice = netPrice;
-    }
-
-    public double getDiscount()
-    {
-        return _discount;
-    }
-
-    public void setDiscount( double discount )
-    {
-        _discount = discount;
     }
 
     public double getTax()
@@ -155,7 +142,7 @@ public class Purchase extends BaseEntity
         Purchase purchase = ( Purchase ) o;
         return Double.compare( purchase._grossPrice, _grossPrice ) == 0 &&
                Double.compare( purchase._netPrice, _netPrice ) == 0 &&
-               Double.compare( purchase._discount, _discount ) == 0 && Double.compare( purchase._tax, _tax ) == 0 &&
+               Double.compare( purchase._tax, _tax ) == 0 &&
                _user.equals( purchase._user ) && _purchaseDate.equals( purchase._purchaseDate ) &&
                _status == purchase._status;
     }
@@ -163,7 +150,7 @@ public class Purchase extends BaseEntity
     @Override
     public int hashCode()
     {
-        return Objects.hash( super.hashCode(), _user, _purchaseDate, _grossPrice, _netPrice, _discount, _tax, _status );
+        return Objects.hash( super.hashCode(), _user, _purchaseDate, _grossPrice, _netPrice, _tax, _status );
     }
 
     @Override
@@ -173,7 +160,6 @@ public class Purchase extends BaseEntity
         sb.append( super.toString() );
         sb.append( ", _user='" ).append( _user );
         sb.append( ", _grossPrice='" ).append( _grossPrice );
-        sb.append( ", _discount='" ).append( _discount );
         sb.append( ", _tax='" ).append( _tax );
         sb.append( ", _netPrice='" ).append( _netPrice );
         sb.append( ", _status='" ).append( _status );

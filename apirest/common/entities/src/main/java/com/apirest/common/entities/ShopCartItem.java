@@ -14,9 +14,9 @@ import java.util.Objects;
  * Description: Entidad que define el Carrito de Compra de los usuarios.
  */
 @Entity
-@Table( name = "CARTSHOPITEM", uniqueConstraints={
+@Table( name = "SHOPCARTITEM", uniqueConstraints={
         @UniqueConstraint(columnNames = {"idProduct", "idUser"} ) } )
-public class CartShopItem extends BaseEntity
+public class ShopCartItem extends BaseEntity
 {
     @ManyToOne
     @JoinColumn( name = "idProduct", nullable = false  )
@@ -72,11 +72,11 @@ public class CartShopItem extends BaseEntity
         _registerDate = registerDate;
     }
 
-    public CartShopItem()
+    public ShopCartItem()
     {
     }
 
-    public CartShopItem( int id )
+    public ShopCartItem( int id )
     {
         super( id );
     }
@@ -96,9 +96,9 @@ public class CartShopItem extends BaseEntity
         {
             return false;
         }
-        CartShopItem cartShopItems = ( CartShopItem ) o;
-        return _quantity == cartShopItems._quantity && _product.equals( cartShopItems._product ) &&
-               _user.equals( cartShopItems._user ) && _registerDate.equals( cartShopItems._registerDate );
+        ShopCartItem shopCartItems = ( ShopCartItem ) o;
+        return _quantity == shopCartItems._quantity && _product.equals( shopCartItems._product ) &&
+               _user.equals( shopCartItems._user ) && _registerDate.equals( shopCartItems._registerDate );
     }
 
     @Override
@@ -110,7 +110,7 @@ public class CartShopItem extends BaseEntity
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder( "CartShopItem{" );
+        final StringBuilder sb = new StringBuilder( "ShopCartItem{" );
         sb.append( super.toString() );
         sb.append( ", _registerDate='" ).append( _registerDate );
         sb.append( ", _user='" ).append( _user );

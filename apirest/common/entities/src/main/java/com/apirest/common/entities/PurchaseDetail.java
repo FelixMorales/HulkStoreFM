@@ -25,7 +25,7 @@ public class PurchaseDetail extends BaseEntity
     private Purchase _purchase;
 
     @Column( name = "quantity", nullable = false)
-    private LocalDate _quantity;
+    private int _quantity;
 
     @Column( name = "unitPrice", nullable = false )
     private double _unitPrice;
@@ -50,12 +50,12 @@ public class PurchaseDetail extends BaseEntity
         _purchase = purchase;
     }
 
-    public LocalDate getQuantity()
+    public int getQuantity()
     {
         return _quantity;
     }
 
-    public void setQuantity( LocalDate quantity )
+    public void setQuantity( int quantity )
     {
         _quantity = quantity;
     }
@@ -95,8 +95,8 @@ public class PurchaseDetail extends BaseEntity
             return false;
         }
         PurchaseDetail that = ( PurchaseDetail ) o;
-        return Double.compare( that._unitPrice, _unitPrice ) == 0 && _inventory.equals( that._inventory ) &&
-               _purchase.equals( that._purchase ) && _quantity.equals( that._quantity );
+        return _quantity == that._quantity && Double.compare( that._unitPrice, _unitPrice ) == 0 &&
+               _inventory.equals( that._inventory ) && _purchase.equals( that._purchase );
     }
 
     @Override

@@ -32,6 +32,9 @@ public class InventoryMapper
         if( dto._registerDate != null )
             entity.setRegisterDate( LocalDateTime.parse( dto._registerDate ) );
 
+        if( dto._supplyDate != null )
+            entity.setSupplyDate( LocalDateTime.parse( dto._supplyDate ) );
+
         if ( dto._product != null )
             entity.setProduct( ProductMapper.mapDtoToEntity( dto._product ) );
 
@@ -53,6 +56,7 @@ public class InventoryMapper
         dto._id = entity.getId();
         dto._product = ProductMapper.mapEntityToDto( entity.getProduct() );
         dto._registerDate = entity.getRegisterDate().toString();
+        dto._supplyDate = entity.getSupplyDate().toString();
         dto._quantity = entity.getQuantity();
         dto._quantityAvailable = entity.getQuantityAvailable();
         dto._status = entity.getStatus().getValue();
