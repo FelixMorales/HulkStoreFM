@@ -1,5 +1,9 @@
 package com.apirest.common.utilities;
 
+import com.apirest.common.exceptions.registry.ConfigException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -18,6 +22,8 @@ public class Registry
 
     private Properties _properties;
 
+    private static Logger _logger = LoggerFactory.getLogger( Registry.class );
+
     /**
      * Name: getProperty
      * Description: Retorna el valor asociado al nombre del atributo entrante o en su defecto null
@@ -33,7 +39,7 @@ public class Registry
     private Registry()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a Registry.CTOR" );
+        _logger.debug( "Entrando a Registry.CTOR" );
         //endregion
 
         try
@@ -43,11 +49,11 @@ public class Registry
         }
         catch( IOException e )
         {
-            //throw new ConfigException( e, "Error reading properties from " + PROPERTIES_FILE );
+            throw new ConfigException( e, "Error reading properties from " + PROPERTIES_FILE );
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de Registry.CTOR: Properties {}", _properties );
+        _logger.debug( "Saliendo de Registry.CTOR: Properties {}", _properties );
         //endregion
     }
 

@@ -5,6 +5,8 @@ import com.apirest.common.entities.Product;
 import com.apirest.common.exceptions.jpa.FindAllException;
 import com.apirest.enums.MasterStatus;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,6 +18,8 @@ public class InventoryDAO extends BaseDAO<Inventory>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
+
+    private static Logger _logger = LoggerFactory.getLogger( InventoryDAO.class );
 
     public InventoryDAO( DBHandler handler )
     {
@@ -36,7 +40,7 @@ public class InventoryDAO extends BaseDAO<Inventory>
         List<Inventory> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a InventoryDAO.findAvailableProductStock product {}", product );
+        _logger.debug( "Entrando a InventoryDAO.findAvailableProductStock product {}", product );
         //endregion
 
         try
@@ -59,7 +63,7 @@ public class InventoryDAO extends BaseDAO<Inventory>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de InventoryDAO.findAvailableProductStock result {}", result );
+        _logger.debug( "Saliendo de InventoryDAO.findAvailableProductStock result {}", result );
         //endregion
 
         return result;

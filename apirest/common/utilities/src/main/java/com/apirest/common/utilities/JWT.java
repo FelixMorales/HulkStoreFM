@@ -8,6 +8,8 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +26,7 @@ public class JWT
     private static String _issuer = Registry.getInstance().getProperty( Registry.JWT_ISSUER );
     private static int _expiration = Integer.valueOf( Registry.getInstance().getProperty( Registry.JWT_EXPIRATION ) );
 
-    //private static Logger _logger = LoggerFactory.getLogger( JWT.class );
+    private static Logger _logger = LoggerFactory.getLogger( JWT.class );
 
     static
     {
@@ -36,7 +38,7 @@ public class JWT
         MessageDigest sha;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a JWT.setKey: key {}", key );
+        _logger.debug( "entrando a JWT.setKey: key {}", key );
         //endregion
 
         try
@@ -52,7 +54,7 @@ public class JWT
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de JWT.setKey" );
+        _logger.debug( "saliendo de JWT.setKey" );
         //endregion
     }
 
@@ -61,7 +63,7 @@ public class JWT
         String result;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a JWT.createToken: subject {} audience {}", subject, audience );
+        _logger.debug( "entrando a JWT.createToken: subject {} audience {}", subject, audience );
         //endregion
 
         try
@@ -87,7 +89,7 @@ public class JWT
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo a JWT.createToken: token {}", result );
+        _logger.debug( "saliendo a JWT.createToken: token {}", result );
         //endregion
 
         return result;
@@ -98,7 +100,7 @@ public class JWT
         List<String> result = new ArrayList<>(  );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a JWT.createToken: token {}", token );
+        _logger.debug( "entrando a JWT.createToken: token {}", token );
         //endregion
 
         try
@@ -117,7 +119,7 @@ public class JWT
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo a JWT.createToken: result {}", result );
+        _logger.debug( "saliendo a JWT.createToken: result {}", result );
         //endregion
 
         return result;

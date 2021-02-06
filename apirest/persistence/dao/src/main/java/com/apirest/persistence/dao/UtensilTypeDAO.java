@@ -2,13 +2,12 @@ package com.apirest.persistence.dao;
 
 import com.apirest.common.entities.UtensilType;
 import com.apirest.common.exceptions.jpa.FindAllException;
-import com.apirest.common.exceptions.jpa.FindException;
-import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.enums.MasterStatus;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,6 +17,8 @@ public class UtensilTypeDAO extends BaseDAO<UtensilType>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
+
+    private static Logger _logger = LoggerFactory.getLogger( UtensilTypeDAO.class );
 
     public UtensilTypeDAO( DBHandler handler )
     {
@@ -38,7 +39,7 @@ public class UtensilTypeDAO extends BaseDAO<UtensilType>
         List<UtensilType> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a ToyTypeDAO.findActives");
+        _logger.debug( "Entrando a ToyTypeDAO.findActives");
         //endregion
 
         try
@@ -57,7 +58,7 @@ public class UtensilTypeDAO extends BaseDAO<UtensilType>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de ToyTypeDAO.findActives result {}", result );
+        _logger.debug( "Saliendo de ToyTypeDAO.findActives result {}", result );
         //endregion
 
         return result;

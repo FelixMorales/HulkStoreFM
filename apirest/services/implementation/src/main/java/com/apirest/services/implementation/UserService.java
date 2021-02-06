@@ -26,20 +26,22 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Path( "/user" )
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
 public class UserService extends BaseApplicationService
 {
-    //private static Logger _logger = LoggerFactory.getLogger( UserService.class );
+    private static Logger _logger = LoggerFactory.getLogger( UserService.class );
 
     @POST
     @Path("/addClient")
     public void addClient( UserDTO user )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a addClient: user {}", user );
+        _logger.debug( "entrando a addClient: user {}", user );
         //endregion
 
         User entity;
@@ -55,17 +57,17 @@ public class UserService extends BaseApplicationService
         }
         catch ( ConstraintException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.BAD_REQUEST, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de addClient" );
+        _logger.debug( "saliendo de addClient" );
         //endregion
     }
 
@@ -74,7 +76,7 @@ public class UserService extends BaseApplicationService
     public UserDTO Authenticate( UserDTO user )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a Authenticate: user {}", user );
+        _logger.debug( "entrando a Authenticate: user {}", user );
         //endregion
 
         User entity;
@@ -94,17 +96,17 @@ public class UserService extends BaseApplicationService
         }
         catch ( NotFoundException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.BAD_REQUEST, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de Authenticate: response {}", response );
+        _logger.debug( "saliendo de Authenticate: response {}", response );
         //endregion
 
         return response;
@@ -115,7 +117,7 @@ public class UserService extends BaseApplicationService
     public void addShopCartItem( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ShopCartItemDTO item )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        _logger.debug( "entrando a supplyInventory: item {}", item );
         //endregion
 
         ShopCartItem entity;
@@ -132,26 +134,27 @@ public class UserService extends BaseApplicationService
         }
         catch ( ConstraintException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.BAD_REQUEST, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de supplyInventory" );
+        _logger.debug( "saliendo de supplyInventory" );
         //endregion
     }
 
     @POST
     @Path("/getShopCartItems")
-    public List<ShopCartItemDTO> getShopCartItems( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, UserDTO user )
+    public List<ShopCartItemDTO> getShopCartItems( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
+            UserDTO user )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        _logger.debug( "entrando a supplyInventory: user {}", user );
         //endregion
 
         User entity;
@@ -172,12 +175,12 @@ public class UserService extends BaseApplicationService
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de supplyInventory" );
+        _logger.debug( "saliendo de supplyInventory" );
         //endregion
 
         return response;
@@ -188,7 +191,7 @@ public class UserService extends BaseApplicationService
     public PurchaseDTO getPurchaseDetail( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, UserDTO user )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        _logger.debug( "entrando a supplyInventory: user {}", user );
         //endregion
 
         User entity;
@@ -209,17 +212,17 @@ public class UserService extends BaseApplicationService
         }
         catch ( EmptyStockException | EmptyShopCartException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.PRECONDITION_FAILED, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de supplyInventory" );
+        _logger.debug( "saliendo de supplyInventory" );
         //endregion
 
         return response;
@@ -231,7 +234,7 @@ public class UserService extends BaseApplicationService
             PurchaseDTO purchase )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        _logger.debug( "entrando a supplyInventory: purchase {}", purchase );
         //endregion
 
         Purchase entity;
@@ -252,22 +255,22 @@ public class UserService extends BaseApplicationService
         }
         catch ( OutdatedPurchaseException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.EXPECTATION_FAILED, e );
         }
         catch ( EmptyStockException | EmptyShopCartException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.PRECONDITION_FAILED, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de supplyInventory" );
+        _logger.debug( "saliendo de supplyInventory" );
         //endregion
 
         return response;

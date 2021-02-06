@@ -1,14 +1,13 @@
 package com.apirest.services.implementation;
 
-import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.Clothes;
 import com.apirest.common.exceptions.jpa.ConstraintException;
-import com.apirest.common.exceptions.jwt.JWTVerifyException;
-import com.apirest.common.utilities.JWT;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
 import com.apirest.logic.dto.ClothesDTO;
 import com.apirest.logic.mappers.ClothesMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
@@ -24,14 +23,14 @@ import javax.ws.rs.core.Response;
 @Consumes( MediaType.APPLICATION_JSON )
 public class ProductService extends BaseApplicationService
 {
-    //private static Logger _logger = LoggerFactory.getLogger( UserService.class );
+    private static Logger _logger = LoggerFactory.getLogger( ProductService.class );
 
     @POST
     @Path("/addClothes")
     public void AddClothes( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ClothesDTO clothes )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a AddClothes: clothes {}", clothes );
+        _logger.debug( "entrando a AddClothes: clothes {}", clothes );
         //endregion
 
         Clothes entity;
@@ -48,17 +47,17 @@ public class ProductService extends BaseApplicationService
         }
         catch ( ConstraintException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.BAD_REQUEST, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de AddClothes" );
+        _logger.debug( "saliendo de AddClothes" );
         //endregion
     }
 }

@@ -2,13 +2,12 @@ package com.apirest.persistence.dao;
 
 import com.apirest.common.entities.Gender;
 import com.apirest.common.exceptions.jpa.FindAllException;
-import com.apirest.common.exceptions.jpa.FindException;
-import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.enums.MasterStatus;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,6 +17,8 @@ public class GenderDAO extends BaseDAO<Gender>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
+
+    private static Logger _logger = LoggerFactory.getLogger( GenderDAO.class );
 
     public GenderDAO( DBHandler handler )
     {
@@ -38,7 +39,7 @@ public class GenderDAO extends BaseDAO<Gender>
         List<Gender> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a GenderDAO.findActives");
+        _logger.debug( "Entrando a GenderDAO.findActives");
         //endregion
 
         try
@@ -57,7 +58,7 @@ public class GenderDAO extends BaseDAO<Gender>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de GenderDAO.findActives result {}", result );
+        _logger.debug( "Saliendo de GenderDAO.findActives result {}", result );
         //endregion
 
         return result;

@@ -4,20 +4,22 @@ import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.Purchase;
 import com.apirest.enums.PurchaseStatus;
 import com.apirest.logic.dto.PurchaseDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 
 public class PurchaseMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( PurchaseMapper.class );
+    private static Logger _logger = LoggerFactory.getLogger( PurchaseMapper.class );
 
     public static Purchase mapDtoToEntity( PurchaseDTO dto )
     {
         final Purchase entity = EntityFactory.createPurchase( );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a PurchaseMapper.mapDtoToEntity: dto {}", dto );
+        _logger.debug( "Entrando a PurchaseMapper.mapDtoToEntity: dto {}", dto );
         //endregion
 
         entity.setId( dto._id );
@@ -34,7 +36,7 @@ public class PurchaseMapper
             entity.setUser( UserMapper.mapDtoToEntity( dto._user ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de PurchaseMapper.mapDtoToEntity: entity {}", entity );
+        _logger.debug( "Saliendo de PurchaseMapper.mapDtoToEntity: entity {}", entity );
         //endregion
 
         return entity;
@@ -45,7 +47,7 @@ public class PurchaseMapper
         final PurchaseDTO dto = new PurchaseDTO();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a PurchaseMapper.mapEntityToDto: entity {}", entity );
+        _logger.debug( "Entrando a PurchaseMapper.mapEntityToDto: entity {}", entity );
         //endregion
 
         dto._id = entity.getId();
@@ -60,7 +62,7 @@ public class PurchaseMapper
             dto._purchaseDetailList = PurchaseDetailMapper.mapEntityListToDTOList( entity.getPurchaseDetailList() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de PurchaseMapper.mapEntityToDto: dto {}", dto );
+        _logger.debug( "Saliendo de PurchaseMapper.mapEntityToDto: dto {}", dto );
         //endregion
 
         return dto;

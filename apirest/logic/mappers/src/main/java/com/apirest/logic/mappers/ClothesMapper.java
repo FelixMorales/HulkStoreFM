@@ -3,17 +3,19 @@ package com.apirest.logic.mappers;
 import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.Clothes;
 import com.apirest.logic.dto.ClothesDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClothesMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( ClothesMapper.class );
+    private static Logger _logger = LoggerFactory.getLogger( ClothesMapper.class );
 
     public static Clothes mapDtoToEntity( ClothesDTO dto )
     {
         final Clothes entity = EntityFactory.createClothes( ProductMapper.mapDtoToEntity( dto ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ClothesMapper.mapDtoToEntity: dto {}", dto );
+        _logger.debug( "Entrando a ClothesMapper.mapDtoToEntity: dto {}", dto );
         //endregion
 
         entity.setColor( dto._color );
@@ -25,7 +27,7 @@ public class ClothesMapper
             entity.setClothesType( EntityFactory.createClothesType( dto._clothesType._id ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ClothesMapper.mapDtoToEntity: entity {}", entity );
+        _logger.debug( "Saliendo de ClothesMapper.mapDtoToEntity: entity {}", entity );
         //endregion
 
         return entity;
@@ -36,7 +38,7 @@ public class ClothesMapper
         final ClothesDTO dto = new ClothesDTO();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ClothesMapper.mapEntityToDto: entity {}", entity );
+        _logger.debug( "Entrando a ClothesMapper.mapEntityToDto: entity {}", entity );
         //endregion
 
         dto._id = entity.getId();
@@ -54,7 +56,7 @@ public class ClothesMapper
 
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ClothesMapper.mapEntityToDto: dto {}", dto );
+        _logger.debug( "Saliendo de ClothesMapper.mapEntityToDto: dto {}", dto );
         //endregion
 
         return dto;

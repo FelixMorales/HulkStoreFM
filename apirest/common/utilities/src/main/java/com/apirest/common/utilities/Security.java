@@ -1,10 +1,11 @@
 package com.apirest.common.utilities;
 
 import com.apirest.common.exceptions.security.PasswordAlgorithmException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
@@ -13,7 +14,7 @@ import java.security.SecureRandom;
  */
 public class Security
 {
-    //private static Logger _logger = LoggerFactory.getLogger( Security.class );
+    private static Logger _logger = LoggerFactory.getLogger( Security.class );
     private static int _saltLength = Integer.parseInt( Registry.getInstance().getProperty( Registry.SEC_SALT_LENGTH ) );
 
     /**
@@ -29,7 +30,7 @@ public class Security
         final String response;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a Security.hashPassword: strToEncrypt {}, salt {}", strToEncrypt, salt );
+        _logger.debug( "Entrando a Security.hashPassword: strToEncrypt {}, salt {}", strToEncrypt, salt );
         //endregion
 
         try
@@ -56,7 +57,7 @@ public class Security
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de Security.hashPassword:: response {}", response );
+        _logger.debug( "Saliendo de Security.hashPassword:: response {}", response );
         //endregion
 
         return response;
@@ -73,7 +74,7 @@ public class Security
         final String response;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a Security.generateSalt" );
+        _logger.debug( "Entrando a Security.generateSalt" );
         //endregion
 
         byte[] salt = new byte[ _saltLength ];
@@ -90,7 +91,7 @@ public class Security
         response = builder.toString();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de Security.generateSalt" );
+        _logger.debug( "Saliendo de Security.generateSalt" );
         //endregion
 
         return response;

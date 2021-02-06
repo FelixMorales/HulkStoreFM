@@ -4,6 +4,8 @@ import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.jpa.FindException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -15,6 +17,8 @@ public class UserDAO extends BaseDAO<User>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
+
+    private static Logger _logger = LoggerFactory.getLogger( UserDAO.class );
 
     public UserDAO( DBHandler handler )
     {
@@ -36,7 +40,7 @@ public class UserDAO extends BaseDAO<User>
         User result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a UserDao.findByEmail user {}", user );
+        _logger.debug( "Entrando a UserDao.findByEmail user {}", user );
         //endregion
 
         try
@@ -59,7 +63,7 @@ public class UserDAO extends BaseDAO<User>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de UserDao.findByEmail result {}", result );
+        _logger.debug( "Saliendo de UserDao.findByEmail result {}", result );
         //endregion
 
         return result;

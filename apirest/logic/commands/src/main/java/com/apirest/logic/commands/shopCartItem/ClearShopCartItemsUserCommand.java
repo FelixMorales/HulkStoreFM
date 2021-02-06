@@ -5,6 +5,8 @@ import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.DBHandler;
 import com.apirest.persistence.dao.ShopCartItemDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Name: GetCartShopItemsByUser
@@ -15,17 +17,19 @@ public class ClearShopCartItemsUserCommand extends Command<Boolean>
     private User _user;
     private ShopCartItemDAO _dao;
 
+    private static Logger _logger = LoggerFactory.getLogger( ClearShopCartItemsUserCommand.class );
+
     public ClearShopCartItemsUserCommand( User user, DBHandler handler )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a ClearShopCartItemsUserCommand.CTOR: entity {}", user );
+        _logger.debug( "entrando a ClearShopCartItemsUserCommand.CTOR: entity {}", user );
         //endregion
 
         _user = user;
         _dao = DAOFactory.createShopCartItemDAO( handler );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de ClearShopCartItemsUserCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de ClearShopCartItemsUserCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -34,13 +38,13 @@ public class ClearShopCartItemsUserCommand extends Command<Boolean>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ClearShopCartItemsUserCommand.execute" );
+        _logger.debug( "Entrando a ClearShopCartItemsUserCommand.execute" );
         //endregion
 
         _dao.clearItems( _user );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ClearShopCartItemsUserCommand.execute" );
+        _logger.debug( "Saliendo de ClearShopCartItemsUserCommand.execute" );
         //endregion
     }
 

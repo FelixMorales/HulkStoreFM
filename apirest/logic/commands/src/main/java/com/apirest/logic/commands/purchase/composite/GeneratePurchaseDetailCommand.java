@@ -11,9 +11,9 @@ import com.apirest.common.exceptions.purchase.EmptyStockException;
 import com.apirest.enums.PurchaseStatus;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
-import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.DBHandler;
-import com.apirest.persistence.dao.InventoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,10 +32,12 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
     private Command<List<ShopCartItem>> _getShopCartItems;
     private Command<List<Inventory>> _getProductStock;
 
+    private static Logger _logger = LoggerFactory.getLogger( GeneratePurchaseDetailCommand.class );
+
     public GeneratePurchaseDetailCommand( User user )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: entity {}", entity );
+        _logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: user {}", user );
         //endregion
 
         createSession( false );
@@ -46,14 +48,14 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
         _result = EntityFactory.createPurchase();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR" );
         //endregion
     }
 
     public GeneratePurchaseDetailCommand( User user, DBHandler handler )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: entity {}", entity );
+        _logger.debug( "entrando a GeneratePurchaseDetailCommand.CTOR: user {}", user );
         //endregion
 
         _user = user;
@@ -62,7 +64,7 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
         _result = EntityFactory.createPurchase();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de GeneratePurchaseDetailCommand.CTOR" );
         //endregion
     }
 
@@ -70,7 +72,7 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a GeneratePurchaseDetailCommand.execute" );
+        _logger.debug( "Entrando a GeneratePurchaseDetailCommand.execute" );
         //endregion
 
         _getShopCartItems.execute();
@@ -94,7 +96,7 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
         generatePurchasePrice();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de GeneratePurchaseDetailCommand.execute" );
+        _logger.debug( "Saliendo de GeneratePurchaseDetailCommand.execute" );
         //endregion
     }
 

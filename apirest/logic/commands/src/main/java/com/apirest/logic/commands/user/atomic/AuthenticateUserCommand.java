@@ -7,6 +7,8 @@ import com.apirest.common.utilities.Security;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Name: GetCartShopItemsByUser
@@ -17,10 +19,12 @@ public class AuthenticateUserCommand extends Command<User>
     private User _user;
     private UserDAO _dao;
 
+    private static Logger _logger = LoggerFactory.getLogger( AuthenticateUserCommand.class );
+
     public AuthenticateUserCommand( User user )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a AuthenticateUserCommand.CTOR: entity {}", entity );
+        _logger.debug( "entrando a AuthenticateUserCommand.CTOR: entity {}", user );
         //endregion
 
         createSession( true );
@@ -29,7 +33,7 @@ public class AuthenticateUserCommand extends Command<User>
         _dao = DAOFactory.createUserDAO( getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de AuthenticateUserCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de AuthenticateUserCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -37,7 +41,7 @@ public class AuthenticateUserCommand extends Command<User>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a AuthenticateUserCommand.execute" );
+        _logger.debug( "Entrando a AuthenticateUserCommand.execute" );
         //endregion
 
         User entity = _dao.findByEmail( _user );
@@ -52,7 +56,7 @@ public class AuthenticateUserCommand extends Command<User>
                                          String.valueOf( _user.getId() ) ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de AuthenticateUserCommand.execute" );
+        _logger.debug( "Saliendo de AuthenticateUserCommand.execute" );
         //endregion
     }
 

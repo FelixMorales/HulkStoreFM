@@ -7,6 +7,8 @@ import com.apirest.enums.UserType;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
@@ -19,10 +21,12 @@ public class AddUserClientCommand extends Command<Boolean>
     private User _user;
     private UserDAO _dao;
 
+    private static Logger _logger = LoggerFactory.getLogger( AddUserClientCommand.class );
+
     public AddUserClientCommand( User user )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a AddUserClientCommand.CTOR: entity {}", entity );
+        _logger.debug( "entrando a AddUserClientCommand.CTOR: user {}", user );
         //endregion
 
         createSession( true );
@@ -31,7 +35,7 @@ public class AddUserClientCommand extends Command<Boolean>
         _dao = DAOFactory.createUserDAO( getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de AddUserClientCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de AddUserClientCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -39,7 +43,7 @@ public class AddUserClientCommand extends Command<Boolean>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a AddUserClientCommand.execute" );
+        _logger.debug( "Entrando a AddUserClientCommand.execute" );
         //endregion
 
         _user.setRegisterDate( LocalDate.now() );
@@ -50,7 +54,7 @@ public class AddUserClientCommand extends Command<Boolean>
         _dao.insert( _user );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de AddUserClientCommand.execute" );
+        _logger.debug( "Saliendo de AddUserClientCommand.execute" );
         //endregion
     }
 

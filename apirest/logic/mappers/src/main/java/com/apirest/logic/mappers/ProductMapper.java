@@ -7,19 +7,21 @@ import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
 import com.apirest.logic.dto.ProductDTO;
 import com.apirest.logic.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 public class ProductMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( ProductMapper.class );
+    private static Logger _logger = LoggerFactory.getLogger( ProductMapper.class );
 
     public static Product mapDtoToEntity( ProductDTO dto )
     {
         final Product entity = EntityFactory.createProduct( );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ProductMapper.mapDtoToEntity: dto {}", dto );
+        _logger.debug( "Entrando a ProductMapper.mapDtoToEntity: dto {}", dto );
         //endregion
 
         entity.setId( dto._id );
@@ -40,7 +42,7 @@ public class ProductMapper
             entity.setBrand( EntityFactory.createBrand(dto._brand._id) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ProductMapper.mapDtoToEntity: entity {}", entity );
+        _logger.debug( "Saliendo de ProductMapper.mapDtoToEntity: entity {}", entity );
         //endregion
 
         return entity;
@@ -51,7 +53,7 @@ public class ProductMapper
         final ProductDTO dto = new ProductDTO();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ProductMapper.mapEntityToDto: entity {}", entity );
+        _logger.debug( "Entrando a ProductMapper.mapEntityToDto: entity {}", entity );
         //endregion
 
         dto._id = entity.getId();
@@ -65,7 +67,7 @@ public class ProductMapper
         dto._brand = MasterMapper.mapEntityToDTO( entity.getBrand() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ProductMapper.mapEntityToDto: dto {}", dto );
+        _logger.debug( "Saliendo de ProductMapper.mapEntityToDto: dto {}", dto );
         //endregion
 
         return dto;

@@ -1,8 +1,11 @@
 package com.apirest.services.implementation;
 
 import com.apirest.common.exceptions.jwt.JWTVerifyException;
+import com.apirest.common.exceptions.registry.ConfigException;
 import com.apirest.common.utilities.JWT;
 import com.apirest.common.utilities.Registry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.WebApplicationException;
@@ -14,7 +17,7 @@ import javax.ws.rs.core.Application;
 @ApplicationPath( "/api" )
 public class BaseApplicationService extends Application
 {
-    //private static Logger _logger = LoggerFactory.getLogger( BaseApplicationService.class );
+    private static Logger _logger = LoggerFactory.getLogger( BaseApplicationService.class );
 
     @Override
     public Set<Class<?>> getClasses()
@@ -22,7 +25,7 @@ public class BaseApplicationService extends Application
         final Set<Class<?>> response = new HashSet<>();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a BaseApplicationService.getClasses" );
+        _logger.debug( "Entrando a BaseApplicationService.getClasses" );
         //endregion
 
         try
@@ -33,15 +36,15 @@ public class BaseApplicationService extends Application
             response.add( ProductService.class );
             response.add( InventoryService.class );
         }
-        catch ( /*ConfigException*/ Exception e )
+        catch ( ConfigException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
 
             throw new Error( e.getMessage(), e );
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de BaseApplicationService.getClasses" );
+        _logger.debug( "Saliendo de BaseApplicationService.getClasses" );
         //endregion
 
         return response;
@@ -65,7 +68,7 @@ public class BaseApplicationService extends Application
         }
         catch ( JWTVerifyException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.UNAUTHORIZED, e );
         }
 

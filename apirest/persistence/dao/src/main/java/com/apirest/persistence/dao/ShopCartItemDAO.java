@@ -5,6 +5,8 @@ import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.jpa.DeleteException;
 import com.apirest.common.exceptions.jpa.FindAllException;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,6 +19,8 @@ public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
+
+    private static Logger _logger = LoggerFactory.getLogger( ShopCartItemDAO.class );
 
     public ShopCartItemDAO( DBHandler handler )
     {
@@ -38,7 +42,7 @@ public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
         List<ShopCartItem> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a ShopCartItemDAO.findByUser");
+        _logger.debug( "Entrando a ShopCartItemDAO.findByUser");
         //endregion
 
         try
@@ -57,7 +61,7 @@ public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de ShopCartItemDAO.findByUser result {}", result );
+        _logger.debug( "Saliendo de ShopCartItemDAO.findByUser result {}", result );
         //endregion
 
         return result;
@@ -72,7 +76,7 @@ public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
     public void clearItems( User user )
     {
         //region Instrumentation
-        //_logger.debug( "Entrando a ShopCartItemDAO.clearItems");
+        _logger.debug( "Entrando a ShopCartItemDAO.clearItems");
         //endregion
 
         try
@@ -90,7 +94,7 @@ public class ShopCartItemDAO extends BaseDAO<ShopCartItem>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de ShopCartItemDAO.clearItems");
+        _logger.debug( "Saliendo de ShopCartItemDAO.clearItems");
         //endregion
     }
 

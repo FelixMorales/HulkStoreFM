@@ -5,6 +5,8 @@ import com.apirest.enums.MasterStatus;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.ClothesDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
@@ -17,10 +19,12 @@ public class AddClothesCommand extends Command<Boolean>
     private Clothes _clothes;
     private ClothesDAO _dao;
 
+    private static Logger _logger = LoggerFactory.getLogger( AddClothesCommand.class );
+
     public AddClothesCommand( Clothes clothes )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a AddClothesCommand.CTOR: clothes {}", clothes );
+        _logger.debug( "entrando a AddClothesCommand.CTOR: clothes {}", clothes );
         //endregion
 
         createSession( true );
@@ -29,7 +33,7 @@ public class AddClothesCommand extends Command<Boolean>
         _dao = DAOFactory.createClothesDAO( getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de AddClothesCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de AddClothesCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -37,7 +41,7 @@ public class AddClothesCommand extends Command<Boolean>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a AddClothesCommand.execute" );
+        _logger.debug( "Entrando a AddClothesCommand.execute" );
         //endregion
 
         _clothes.setRegisterDate( LocalDate.now() );
@@ -45,7 +49,7 @@ public class AddClothesCommand extends Command<Boolean>
         _dao.insert( _clothes );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de AddClothesCommand.execute" );
+        _logger.debug( "Saliendo de AddClothesCommand.execute" );
         //endregion
     }
 

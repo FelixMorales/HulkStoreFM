@@ -1,12 +1,12 @@
 package com.apirest.logic.commands.inventory.atomic;
 
 import com.apirest.common.entities.Inventory;
-import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
-import com.apirest.enums.UserType;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.InventoryDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 
@@ -19,10 +19,12 @@ public class SupplyInventoryCommand extends Command<Boolean>
     private Inventory _inventoryItem;
     private InventoryDAO _dao;
 
+    private static Logger _logger = LoggerFactory.getLogger( SupplyInventoryCommand.class );
+
     public SupplyInventoryCommand( Inventory inventoryItem )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a AddUserClientCommand.CTOR: entity {}", entity );
+        _logger.debug( "entrando a SupplyInventoryCommand.CTOR: inventoryItem {}", inventoryItem );
         //endregion
 
         createSession( true );
@@ -31,7 +33,7 @@ public class SupplyInventoryCommand extends Command<Boolean>
         _dao = DAOFactory.createInventoryDAO( getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de AddUserClientCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de SupplyInventoryCommand.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -39,7 +41,7 @@ public class SupplyInventoryCommand extends Command<Boolean>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a AddUserClientCommand.execute" );
+        _logger.debug( "Entrando a SupplyInventoryCommand.execute" );
         //endregion
 
         _inventoryItem.setQuantityAvailable( _inventoryItem.getQuantity() );
@@ -48,7 +50,7 @@ public class SupplyInventoryCommand extends Command<Boolean>
         _dao.insert( _inventoryItem );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de AddUserClientCommand.execute" );
+        _logger.debug( "Saliendo de SupplyInventoryCommand.execute" );
         //endregion
     }
 

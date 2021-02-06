@@ -5,12 +5,11 @@ import com.apirest.common.entities.Purchase;
 import com.apirest.common.entities.PurchaseDetail;
 import com.apirest.common.exceptions.purchase.EmptyStockException;
 import com.apirest.common.exceptions.purchase.OutdatedPurchaseException;
-import com.apirest.enums.MasterStatus;
 import com.apirest.enums.PurchaseStatus;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
-import com.apirest.persistence.DAOFactory;
-import com.apirest.persistence.dao.PurchaseDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Name: GetCartShopItemsByUser
@@ -23,10 +22,12 @@ public class ExecutePurchaseCommand extends Command<Purchase>
     private Command<Purchase> getPurchaseDetail;
     private Command<Inventory> getCurrentInventory;
 
+    private static Logger _logger = LoggerFactory.getLogger( ExecutePurchaseCommand.class );
+
     public ExecutePurchaseCommand( Purchase purchase )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a ExecutePurchaseCommand.CTOR: entity {}", purchase );
+        _logger.debug( "entrando a ExecutePurchaseCommand.CTOR: entity {}", purchase );
         //endregion
 
         createSession( true );
@@ -35,7 +36,7 @@ public class ExecutePurchaseCommand extends Command<Purchase>
         getPurchaseDetail = CommandFactory.createGeneratePurchaseDetailCommand( _purchase.getUser(), getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de ExecutePurchaseCommand.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de ExecutePurchaseCommand.CTOR" );
         //endregion
     }
 
@@ -43,7 +44,7 @@ public class ExecutePurchaseCommand extends Command<Purchase>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a ExecutePurchaseCommand.execute" );
+        _logger.debug( "Entrando a ExecutePurchaseCommand.execute" );
         //endregion
 
         getPurchaseDetail.execute();
@@ -64,7 +65,7 @@ public class ExecutePurchaseCommand extends Command<Purchase>
         _result = currentPurchase;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de ExecutePurchaseCommand.execute" );
+        _logger.debug( "Saliendo de ExecutePurchaseCommand.execute" );
         //endregion
     }
 

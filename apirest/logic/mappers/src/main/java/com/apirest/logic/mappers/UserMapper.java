@@ -5,19 +5,21 @@ import com.apirest.common.entities.User;
 import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
 import com.apirest.logic.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
 public class UserMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( UserMapper.class );
+    private static Logger _logger = LoggerFactory.getLogger( UserMapper.class );
 
     public static User mapDtoToEntity( UserDTO dto )
     {
         final User entity = EntityFactory.createUser( );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a UserMapper.mapDtoToEntity: dto {}", dto );
+        _logger.debug( "Entrando a UserMapper.mapDtoToEntity: dto {}", dto );
         //endregion
 
         entity.setId( dto._id );
@@ -40,7 +42,7 @@ public class UserMapper
             entity.setRegisterDate( LocalDate.parse( dto._registerDate ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de UserMapper.mapDtoToEntity: entity {}", entity );
+        _logger.debug( "Saliendo de UserMapper.mapDtoToEntity: entity {}", entity );
         //endregion
 
         return entity;
@@ -51,7 +53,7 @@ public class UserMapper
         final UserDTO dto = new UserDTO();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a UserMapper.mapEntityToDto: entity {}", entity );
+        _logger.debug( "Entrando a UserMapper.mapEntityToDto: entity {}", entity );
         //endregion
 
         dto._id = entity.getId();
@@ -72,7 +74,7 @@ public class UserMapper
             dto._registerDate = entity.getRegisterDate().toString();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de UserMapper.mapEntityToDto: dto {}", dto );
+        _logger.debug( "Saliendo de UserMapper.mapEntityToDto: dto {}", dto );
         //endregion
 
         return dto;

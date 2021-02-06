@@ -6,6 +6,8 @@ import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.DBHandler;
 import com.apirest.persistence.dao.ShopCartItemDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,10 +21,12 @@ public class GetShopCartItemsByUserCommand extends Command<List<ShopCartItem>>
     private ShopCartItemDAO _dao;
     private List<ShopCartItem> _result;
 
+    private static Logger _logger = LoggerFactory.getLogger( GetShopCartItemsByUserCommand.class );
+
     public GetShopCartItemsByUserCommand( User user )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
+        _logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
         //endregion
 
         createSession( true );
@@ -31,21 +35,21 @@ public class GetShopCartItemsByUserCommand extends Command<List<ShopCartItem>>
         _dao = DAOFactory.createShopCartItemDAO( getHandler() );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de GetShopCartItemsByUser.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de GetShopCartItemsByUser.CTOR: _dao {}", _dao );
         //endregion
     }
 
     public GetShopCartItemsByUserCommand( User user, DBHandler handler )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
+        _logger.debug( "entrando a GetShopCartItemsByUser.CTOR: entity {}", user );
         //endregion
 
         _user = user;
         _dao = DAOFactory.createShopCartItemDAO( handler );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de GetShopCartItemsByUser.CTOR: _dao {}", _dao );
+        _logger.debug( "saliendo de GetShopCartItemsByUser.CTOR: _dao {}", _dao );
         //endregion
     }
 
@@ -54,13 +58,13 @@ public class GetShopCartItemsByUserCommand extends Command<List<ShopCartItem>>
     public void execute()
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a GetShopCartItemsByUser.execute" );
+        _logger.debug( "Entrando a GetShopCartItemsByUser.execute" );
         //endregion
 
         _result = _dao.findByUser( _user );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de GetShopCartItemsByUser.execute" );
+        _logger.debug( "Saliendo de GetShopCartItemsByUser.execute" );
         //endregion
     }
 

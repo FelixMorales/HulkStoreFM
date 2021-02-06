@@ -6,6 +6,8 @@ import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
 import com.apirest.logic.dto.InventoryDTO;
 import com.apirest.logic.mappers.InventoryMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
@@ -21,14 +23,14 @@ import javax.ws.rs.core.Response;
 @Consumes( MediaType.APPLICATION_JSON )
 public class InventoryService extends BaseApplicationService
 {
-    //private static Logger _logger = LoggerFactory.getLogger( InventoryService.class );
+    private static Logger _logger = LoggerFactory.getLogger( InventoryService.class );
 
     @POST
     @Path("/supply")
     public void supplyInventory( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, InventoryDTO inventoryItem )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        _logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
         //endregion
 
         Inventory entity;
@@ -45,17 +47,17 @@ public class InventoryService extends BaseApplicationService
         }
         catch ( ConstraintException e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.BAD_REQUEST, e );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
+            _logger.error( e.getMessage(), e );
             throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de supplyInventory" );
+        _logger.debug( "saliendo de supplyInventory" );
         //endregion
     }
 }

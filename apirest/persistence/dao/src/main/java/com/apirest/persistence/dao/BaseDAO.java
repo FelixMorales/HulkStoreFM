@@ -8,6 +8,8 @@ import com.apirest.common.exceptions.jpa.FindAllException;
 import com.apirest.common.exceptions.jpa.FindException;
 import com.apirest.common.exceptions.jpa.UpdateException;
 import com.apirest.persistence.DBHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -22,7 +24,7 @@ public abstract class BaseDAO<T>
     private Class<T> _class;
     private DBHandler _handler;
 
-    //private static Logger _logger = LoggerFactory.getLogger( BaseDAO.class );
+    private static Logger _logger = LoggerFactory.getLogger( BaseDAO.class );
 
     public BaseDAO( DBHandler handler )
     {
@@ -32,14 +34,14 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: insert
-     * Description: method for inserting a record on the DB
+     * Description: metodo para insertar un registro en la BD.
      *
      * @param entity entity
      */
     public T insert( T entity )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.insert: entity {}", entity );
+        _logger.debug( "entrando a BaseDAO.insert: entity {}", entity );
         //endregion
 
         EntityManager em = _handler.getSession();
@@ -59,7 +61,7 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.insert: entity {}", entity );
+        _logger.debug( "saliendo de BaseDAO.insert: entity {}", entity );
         //endregion
 
         return entity;
@@ -67,14 +69,14 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: update
-     * Description: method for updating a record on the DB
+     * Description: metodo para actualizar un registro en la BD
      *
      * @param entity entity
      */
     public T update( T entity )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.update: entity {}", entity );
+        _logger.debug( "entrando a BaseDAO.update: entity {}", entity );
         //endregion
 
         EntityManager em = _handler.getSession();
@@ -94,7 +96,7 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.update: entity {}", entity );
+        _logger.debug( "saliendo de BaseDAO.update: entity {}", entity );
         //endregion
 
         return entity;
@@ -102,14 +104,14 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: delete
-     * Description: method for deleting a record from the DB
+     * Description: metodo para eliminar un registro en la BD
      *
      * @param entity entity
      */
     public T delete( T entity )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.delete: entity {}", entity );
+        _logger.debug( "entrando a BaseDAO.delete: entity {}", entity );
         //endregion
 
         EntityManager em = _handler.getSession();
@@ -125,7 +127,7 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.delete: entity {}", entity );
+        _logger.debug( "saliendo de BaseDAO.delete: entity {}", entity );
         //endregion
 
         return entity;
@@ -133,7 +135,7 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: findAll
-     * Description: method for collecting all registers from an entity
+     * Description: metodo para obtener todos los registros de una entidad.
      *
      * @return entity list
      */
@@ -145,7 +147,7 @@ public abstract class BaseDAO<T>
         List<T> list = null;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.findAll: class {}", _class );
+        _logger.debug( "entrando a BaseDAO.findAll: class {}", _class );
         //endregion
 
         EntityManager em = _handler.getSession();
@@ -165,7 +167,7 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.findAll: list {}", list );
+        _logger.debug( "saliendo de BaseDAO.findAll: list {}", list );
         //endregion
 
         return list;
@@ -173,7 +175,7 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: auth
-     * Description: method for collecting an entity
+     * Description: metodo para consultar la entidad en la BD
      *
      * @param id identifier
      */
@@ -182,7 +184,7 @@ public abstract class BaseDAO<T>
         T result = null;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.find: id {} class {}", id, _class );
+        _logger.debug( "entrando a BaseDAO.find: id {} class {}", id, _class );
         //endregion
 
         try
@@ -195,7 +197,7 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.find: entity {}", result );
+        _logger.debug( "saliendo de BaseDAO.find: entity {}", result );
         //endregion
 
         return result;
@@ -203,14 +205,14 @@ public abstract class BaseDAO<T>
 
     /**
      * Name: detach
-     * Description: method for detach an entity
+     * Description: metodo para efecutar detach a la entidad.
      *
      * @param entity entity
      */
     public void detach( T entity )
     {
         //region Instrumentation DEBUG
-        //_logger.debug( "entrando a BaseDAO.detach: entity {}", entity );
+        _logger.debug( "entrando a BaseDAO.detach: entity {}", entity );
         //endregion
 
         EntityManager em = _handler.getSession();
@@ -225,13 +227,13 @@ public abstract class BaseDAO<T>
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "saliendo de BaseDAO.detach" );
+        _logger.debug( "saliendo de BaseDAO.detach" );
         //endregion
     }
 
     /**
      * Name: getDBHandler
-     * Description: Get the handler
+     * Description: Obtener el Handler.
      *
      * @return handler
      */

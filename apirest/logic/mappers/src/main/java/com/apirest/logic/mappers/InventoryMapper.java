@@ -7,20 +7,22 @@ import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
 import com.apirest.logic.dto.InventoryDTO;
 import com.apirest.logic.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class InventoryMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( InventoryMapper.class );
+    private static Logger _logger = LoggerFactory.getLogger( InventoryMapper.class );
 
     public static Inventory mapDtoToEntity( InventoryDTO dto )
     {
         final Inventory entity = EntityFactory.createInventory( );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a InventoryMapper.mapDtoToEntity: dto {}", dto );
+        _logger.debug( "Entrando a InventoryMapper.mapDtoToEntity: dto {}", dto );
         //endregion
 
         entity.setId( dto._id );
@@ -39,7 +41,7 @@ public class InventoryMapper
             entity.setProduct( ProductMapper.mapDtoToEntity( dto._product ) );
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de InventoryMapper.mapDtoToEntity: entity {}", entity );
+        _logger.debug( "Saliendo de InventoryMapper.mapDtoToEntity: entity {}", entity );
         //endregion
 
         return entity;
@@ -50,7 +52,7 @@ public class InventoryMapper
         final InventoryDTO dto = new InventoryDTO();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a InventoryMapper.mapEntityToDto: entity {}", entity );
+        _logger.debug( "Entrando a InventoryMapper.mapEntityToDto: entity {}", entity );
         //endregion
 
         dto._id = entity.getId();
@@ -63,7 +65,7 @@ public class InventoryMapper
         dto._unitPrice = entity.getUnitPrice();
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de InventoryMapper.mapEntityToDto: dto {}", dto );
+        _logger.debug( "Saliendo de InventoryMapper.mapEntityToDto: dto {}", dto );
         //endregion
 
         return dto;
