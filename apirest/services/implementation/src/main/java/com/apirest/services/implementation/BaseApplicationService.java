@@ -32,7 +32,6 @@ public class BaseApplicationService extends Application
         {
             Registry.getInstance();
             response.add( UserService.class );
-            response.add( MiscService.class );
             response.add( ProductService.class );
             response.add( InventoryService.class );
         }

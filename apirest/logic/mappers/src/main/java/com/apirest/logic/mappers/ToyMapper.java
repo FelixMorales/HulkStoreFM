@@ -44,13 +44,20 @@ public class ToyMapper
         dto._status = entity.getStatus().getValue();
         dto._registerDate = entity.getRegisterDate().toString();
         dto._code = entity.getCode();
-        dto._hero = MasterMapper.mapEntityToDTO( entity.getHero() );
-        dto._productType = MasterMapper.mapEntityToDTO( entity.getProductType() );
-        dto._brand = MasterMapper.mapEntityToDTO( entity.getBrand() );
-
-        dto._type = MasterMapper.mapEntityToDTO( entity.getToyType() );
         dto._height = entity.getHeight();
         dto._width = entity.getWidth();
+
+        if(entity.getHero() != null)
+            dto._hero = MasterMapper.mapEntityToDTO( entity.getHero() );
+
+        if(entity.getProductType() != null)
+            dto._productType = MasterMapper.mapEntityToDTO( entity.getProductType() );
+
+        if(entity.getBrand() != null)
+            dto._brand = MasterMapper.mapEntityToDTO( entity.getBrand() );
+
+        if(entity.getToyType() != null)
+            dto._type = MasterMapper.mapEntityToDTO( entity.getToyType() );
 
         //region Instrumentation DEBUG
         _logger.debug( "Saliendo de ToyMapper.mapEntityToDto: dto {}", dto );

@@ -56,7 +56,9 @@ public class PurchaseMapper
         dto._netPrice = entity.getNetPrice();
         dto._status = entity.getStatus().getValue();
         dto._tax = entity.getTax();
-        dto._user = UserMapper.mapEntityToDto( entity.getUser() );
+
+        if (entity.getUser() != null)
+            dto._user = UserMapper.mapEntityToDto( entity.getUser() );
 
         if ( entity.getPurchaseDetailList() != null )
             dto._purchaseDetailList = PurchaseDetailMapper.mapEntityListToDTOList( entity.getPurchaseDetailList() );

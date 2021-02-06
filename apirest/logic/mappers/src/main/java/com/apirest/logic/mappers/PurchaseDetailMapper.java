@@ -21,9 +21,11 @@ public class PurchaseDetailMapper
         //endregion
 
         dto._id = entity.getId();
-        dto._inventory = InventoryMapper.mapEntityToDto( entity.getInventory() );
         dto._quantity = entity.getQuantity();
         dto._unitPrice = entity.getUnitPrice();
+
+        if(entity.getInventory() != null)
+            dto._inventory = InventoryMapper.mapEntityToDto( entity.getInventory() );
 
         //region Instrumentation DEBUG
         _logger.debug( "Saliendo de PurchaseDetailMapper.mapEntityToDto: dto {}", dto );

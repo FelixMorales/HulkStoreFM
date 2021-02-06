@@ -51,9 +51,13 @@ public class ShopCartItemMapper
 
         dto._id = entity.getId();
         dto._quantity = entity.getQuantity();
-        dto._product = ProductMapper.mapEntityToDto( entity.getProduct() );
-        dto._user = UserMapper.mapEntityToDto( entity.getUser() );
         dto._registerDate = entity.getRegisterDate().toString();
+
+        if(entity.getProduct() != null)
+            dto._product = ProductMapper.mapEntityToDto( entity.getProduct() );
+
+        if(entity.getUser() != null)
+            dto._user = UserMapper.mapEntityToDto( entity.getUser() );
 
         //region Instrumentation DEBUG
         _logger.debug( "Saliendo de ShopCartItemMapper.mapEntityToDto: dto {}", dto );

@@ -54,13 +54,15 @@ public class InventoryMapper
         //endregion
 
         dto._id = entity.getId();
-        dto._product = ProductMapper.mapEntityToDto( entity.getProduct() );
         dto._registerDate = entity.getRegisterDate().toString();
         dto._supplyDate = entity.getSupplyDate().toString();
         dto._quantity = entity.getQuantity();
         dto._quantityAvailable = entity.getQuantityAvailable();
         dto._status = entity.getStatus().getValue();
         dto._unitPrice = entity.getUnitPrice();
+
+        if( entity.getProduct() != null )
+            dto._product = ProductMapper.mapEntityToDto( entity.getProduct() );
 
         //region Instrumentation DEBUG
         _logger.debug( "Saliendo de InventoryMapper.mapEntityToDto: dto {}", dto );

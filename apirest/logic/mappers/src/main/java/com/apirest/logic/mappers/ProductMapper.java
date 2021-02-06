@@ -61,9 +61,14 @@ public class ProductMapper
         dto._registerDate = entity.getRegisterDate().toString();
         dto._code = entity.getCode();
 
-        dto._hero = MasterMapper.mapEntityToDTO( entity.getHero() );
-        dto._productType = MasterMapper.mapEntityToDTO( entity.getProductType() );
-        dto._brand = MasterMapper.mapEntityToDTO( entity.getBrand() );
+        if (entity.getHero() != null)
+            dto._hero = MasterMapper.mapEntityToDTO( entity.getHero() );
+
+        if (entity.getProductType() != null)
+            dto._productType = MasterMapper.mapEntityToDTO( entity.getProductType() );
+
+        if(entity.getBrand() != null)
+            dto._brand = MasterMapper.mapEntityToDTO( entity.getBrand() );
 
         //region Instrumentation DEBUG
         _logger.debug( "Saliendo de ProductMapper.mapEntityToDto: dto {}", dto );
