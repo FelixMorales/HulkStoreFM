@@ -6,6 +6,7 @@ import com.apirest.common.entities.ShopCartItem;
 import com.apirest.common.entities.Clothes;
 import com.apirest.common.entities.Inventory;
 import com.apirest.common.entities.User;
+import com.apirest.logic.commands.inventory.atomic.GetAllAvailableStockCommand;
 import com.apirest.logic.commands.inventory.atomic.GetAvailableProductStockCommand;
 import com.apirest.logic.commands.inventory.atomic.GetInventoryStockCommand;
 import com.apirest.logic.commands.purchase.atomic.AddPurchaseCommand;
@@ -90,5 +91,15 @@ public class CommandFactory
     public static AddPurchaseCommand createAddPurchaseCommand( Purchase purchase, DBHandler handler )
     {
         return new AddPurchaseCommand( purchase, handler );
+    }
+
+    public static GetAllAvailableStockCommand createGetAllAvailableStockCommand( )
+    {
+        return new GetAllAvailableStockCommand( );
+    }
+
+    public static GetAvailableProductStockCommand createGetAvailableProductStockCommand( Product product )
+    {
+        return new GetAvailableProductStockCommand( product );
     }
 }

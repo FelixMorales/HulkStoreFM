@@ -30,8 +30,8 @@ public class InventoryDAO extends BaseDAO<Inventory>
     }
 
     /**
-     * Name: findActives
-     * Description: Metodo que retorna la lista productos disponibles en el inventario.
+     * Name: findAvailableProductStock
+     * Description: Metodo que retorna la lista stock disponible en el inventario de un producto
      *
      * @return Lista de objeto ToyType
      */
@@ -64,6 +64,45 @@ public class InventoryDAO extends BaseDAO<Inventory>
 
         //region Instrumentation
         _logger.debug( "Saliendo de InventoryDAO.findAvailableProductStock result {}", result );
+        //endregion
+
+        return result;
+    }
+
+    /**
+     * Name: findAvailableProductStock
+     * Description: Metodo que retorna la lista stock disponible de todos los productos
+     *
+     * @return Lista de objeto ToyType
+     */
+    public List<Inventory> findAvailableStock( )
+    {
+        List<Inventory> result;
+
+        //region Instrumentation
+        _logger.debug( "Entrando a InventoryDAO.findAvailableStock" );
+        //endregion
+
+        try
+        {
+            CriteriaQuery<Inventory> query = _builder.createQuery( Inventory.class );
+            Root<Inventory> root = query.from( Inventory.class );
+
+            query.select( root );
+            query.where( _builder.equal( root.get( "_status" ), MasterStatus.ACTIVE ),
+                         _builder.greaterThan( root.get( "_quantityAvailable" ), 0) );
+
+            query.orderBy( _builder.asc( root.get( "_supplyDate" ) ) );
+
+            result = _em.createQuery( query ).getResultList();
+        }
+        catch ( Exception e )
+        {
+            throw new FindAllException( e, e.getMessage() );
+        }
+
+        //region Instrumentation
+        _logger.debug( "Saliendo de InventoryDAO.findAvailableStock result {}", result );
         //endregion
 
         return result;

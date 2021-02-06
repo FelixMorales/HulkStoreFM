@@ -144,7 +144,10 @@ public class GeneratePurchaseDetailCommand extends Command<Purchase>
         }
 
         _result.setGrossPrice( grossPrice );
-        _result.setNetPrice( grossPrice );
+
+        double netPrice = grossPrice + (grossPrice * _result.getTax());
+
+        _result.setNetPrice( netPrice );
     }
 
     @Override

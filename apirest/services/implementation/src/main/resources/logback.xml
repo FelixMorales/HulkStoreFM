@@ -6,10 +6,10 @@
             <level>DEBUG</level>
         </filter>
 
-        <file>D:/Develop/Log/hulkStore.log</file>
+        <file>../hulkStore/Log/hulkStore.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:/Develop/Log/hulkStore.%d{dd-MM-yyyy}.log</fileNamePattern>
+            <fileNamePattern>../hulkStore/Log/hulkStore.%d{dd-MM-yyyy}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 

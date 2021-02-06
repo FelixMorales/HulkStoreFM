@@ -23,6 +23,22 @@ public class GetAvailableProductStockCommand extends Command<List<Inventory>>
 
     private static Logger _logger = LoggerFactory.getLogger( GetAvailableProductStockCommand.class );
 
+    public GetAvailableProductStockCommand( Product product )
+    {
+        //region Instrumentation DEBUG
+        _logger.debug( "entrando a GetAvailableProductStockCommand.CTOR: product {}", product );
+        //endregion
+
+        createSession( false );
+
+        _entity = product;
+        _dao = DAOFactory.createInventoryDAO( getHandler() );
+
+        //region Instrumentation DEBUG
+        _logger.debug( "saliendo de GetAvailableProductStockCommand.CTOR: _dao {}", _dao );
+        //endregion
+    }
+
     public GetAvailableProductStockCommand( Product product, DBHandler handler )
     {
         //region Instrumentation DEBUG

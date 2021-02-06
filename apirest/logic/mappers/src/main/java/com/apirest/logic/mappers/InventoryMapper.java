@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryMapper
 {
@@ -69,5 +71,25 @@ public class InventoryMapper
         //endregion
 
         return dto;
+    }
+
+    public static List<InventoryDTO> mapEntityListToDTOList( List<Inventory> entityList )
+    {
+        final List<InventoryDTO> dtoList = new ArrayList<>();
+
+        //region Instrumentation DEBUG
+        _logger.debug( "entrando a InventoryMapper.mapEntityListToDTOList: size {}, lista {}",
+                       entityList.size(), entityList );
+        //endregion
+
+        for ( Inventory entity : entityList )
+            dtoList.add( mapEntityToDto( entity ) );
+
+        //region Instrumentation DEBUG
+        _logger.debug( "saliendo de InventoryMapper.mapEntityListToDTOList: size {}, lista {}",
+                       dtoList.size(), dtoList );
+        //endregion
+
+        return dtoList;
     }
 }
