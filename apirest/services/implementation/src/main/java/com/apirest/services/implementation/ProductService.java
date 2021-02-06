@@ -12,7 +12,6 @@ import com.apirest.logic.mappers.ClothesMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,16 +21,16 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path( "/clothes" )
+@Path( "/product" )
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
-public class ClothesService extends BaseApplicationService
+public class ProductService extends BaseApplicationService
 {
     //private static Logger _logger = LoggerFactory.getLogger( UserService.class );
 
-    @GET
+    @POST
     @Path("/addClothes")
-    public void AddClothes( ClothesDTO clothes, @Context HttpServletRequest request )
+    public void AddClothes( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ClothesDTO clothes )
     {
         //region Instrumentation
         //_logger.debug( "entrando a AddClothes: clothes {}", clothes );
@@ -40,7 +39,7 @@ public class ClothesService extends BaseApplicationService
         Clothes entity;
 
         verifyParams( clothes );
-        verifyToken( request.getHeader( HttpHeaders.AUTHORIZATION) );
+        verifyToken( credential );
 
         try
         {

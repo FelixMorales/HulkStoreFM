@@ -30,7 +30,7 @@ public class BaseApplicationService extends Application
             Registry.getInstance();
             response.add( UserService.class );
             response.add( MiscService.class );
-            response.add( ClothesService.class );
+            response.add( ProductService.class );
         }
         catch ( /*ConfigException*/ Exception e )
         {
