@@ -1,0 +1,54 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="todo1-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.apirest.common.entities.Accessories</class>
+        <class>com.apirest.common.entities.AccessoryType</class>
+        <class>com.apirest.common.entities.Brand</class>
+        <class>com.apirest.common.entities.ShopCartItem</class>
+        <class>com.apirest.common.entities.Clothes</class>
+        <class>com.apirest.common.entities.ClothesSize</class>
+        <class>com.apirest.common.entities.ClothesType</class>
+        <class>com.apirest.common.entities.Country</class>
+        <class>com.apirest.common.entities.Gender</class>
+        <class>com.apirest.common.entities.Hero</class>
+        <class>com.apirest.common.entities.Inventory</class>
+        <class>com.apirest.common.entities.MaterialType</class>
+        <class>com.apirest.common.entities.Product</class>
+        <class>com.apirest.common.entities.ProductType</class>
+        <class>com.apirest.common.entities.Purchase</class>
+        <class>com.apirest.common.entities.PurchaseDetail</class>
+        <class>com.apirest.common.entities.Toy</class>
+        <class>com.apirest.common.entities.ToyType</class>
+        <class>com.apirest.common.entities.User</class>
+        <class>com.apirest.common.entities.Utensil</class>
+        <class>com.apirest.common.entities.UtensilType</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:todo1db"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            <property name="hibernate.connection.handling_mode" value="delayed_acquisition_and_release_after_transaction" />
+            <property name="hibernate.order_inserts" value="true" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="false" />
+
+            <property name="javax.persistence.sql-load-script-source" value="/data.sql" />
+        </properties>
+    </persistence-unit>
+
+    <!--<persistence-unit name="spi-unit" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.hbm2ddl.auto" value="none" />
+        </properties>
+    </persistence-unit>-->
+
+</persistence>

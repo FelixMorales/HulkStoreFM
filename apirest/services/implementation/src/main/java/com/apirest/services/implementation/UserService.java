@@ -36,6 +36,10 @@ public class UserService extends BaseApplicationService
 {
     private static Logger _logger = LoggerFactory.getLogger( UserService.class );
 
+    /**
+     * Name: addClient
+     * Description: Servicio encargado de registrar un usuario tipo cliente.
+     */
     @POST
     @Path("/addClient")
     public void addClient( UserDTO user )
@@ -71,6 +75,10 @@ public class UserService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: authenticate
+     * Description: Servicio encargado de autenticar al usuario y generarle el token (JWT).
+     */
     @POST
     @Path("/authenticate")
     public UserDTO Authenticate( UserDTO user )
@@ -112,6 +120,10 @@ public class UserService extends BaseApplicationService
         return response;
     }
 
+    /**
+     * Name: addShopCartItem
+     * Description: Servicio encargado de agregar un producto al carrito de compras del usuario
+     */
     @POST
     @Path("/addShopCartItem")
     public void addShopCartItem( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ShopCartItemDTO item )
@@ -148,6 +160,10 @@ public class UserService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: getShopCartItems
+     * Description: Servicio encargado de obtener los productos del carrito de compras del usuario
+     */
     @POST
     @Path("/getShopCartItems")
     public List<ShopCartItemDTO> getShopCartItems( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
@@ -186,6 +202,10 @@ public class UserService extends BaseApplicationService
         return response;
     }
 
+    /**
+     * Name: getShopCartItems
+     * Description: Servicio encargado de obtener el detalle de compra del usuario (previo a realizar la compra)
+     */
     @POST
     @Path("/getPurchaseDetail")
     public PurchaseDTO getPurchaseDetail( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, UserDTO user )
@@ -228,6 +248,10 @@ public class UserService extends BaseApplicationService
         return response;
     }
 
+    /**
+     * Name: getShopCartItems
+     * Description: Servicio encargado de ejecutar la compra (se requiere tener un carrito de compra previamente)
+     */
     @POST
     @Path("/executePurchase")
     public PurchaseDTO executePurchase( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,

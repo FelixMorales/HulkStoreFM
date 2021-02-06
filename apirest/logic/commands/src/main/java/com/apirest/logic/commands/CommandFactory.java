@@ -88,6 +88,11 @@ public class CommandFactory
         return new GetInventoryStockCommand( inventory, handler );
     }
 
+    public static GetInventoryStockCommand createGetInventoryStockCommand( Inventory inventory )
+    {
+        return new GetInventoryStockCommand( inventory );
+    }
+
     public static AddPurchaseCommand createAddPurchaseCommand( Purchase purchase, DBHandler handler )
     {
         return new AddPurchaseCommand( purchase, handler );

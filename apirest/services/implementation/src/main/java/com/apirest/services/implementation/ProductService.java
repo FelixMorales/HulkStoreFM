@@ -38,6 +38,10 @@ public class ProductService extends BaseApplicationService
 {
     private static Logger _logger = LoggerFactory.getLogger( ProductService.class );
 
+    /**
+     * Name: getActivesProducts
+     * Description: Servicio encargado de consultar los productos activos del sistema.
+     */
     @POST
     @Path("/getActivesProducts")
     public List<ProductDTO> getActivesProducts( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential )
@@ -72,6 +76,10 @@ public class ProductService extends BaseApplicationService
         return response;
     }
 
+    /**
+     * Name: addProduct
+     * Description: Servicio encargado de agregar un producto general (comic)
+     */
     @POST
     @Path("/addProduct")
     public void addProduct( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ProductDTO product )
@@ -108,6 +116,10 @@ public class ProductService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: addClothes
+     * Description: Servicio encargado de agregar un producto tipo ropa (camiseta, pantalon, etc)
+     */
     @POST
     @Path("/addClothes")
     public void addClothes( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ClothesDTO clothes )
@@ -144,6 +156,10 @@ public class ProductService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: addAccessory
+     * Description: Servicio encargado de agregar un producto tipo accesorio
+     */
     @POST
     @Path("/addAccessory")
     public void addAccessory( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
@@ -181,6 +197,10 @@ public class ProductService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: addToy
+     * Description: Servicio encargado de agregar un producto tipo juguete
+     */
     @POST
     @Path("/addToy")
     public void addToy( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
@@ -218,6 +238,10 @@ public class ProductService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: addUtensil
+     * Description: Servicio encargado de agregar un producto tipo utensilio (vasos, termos, etc)
+     */
     @POST
     @Path("/addUtensil")
     public void addUtensil( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,

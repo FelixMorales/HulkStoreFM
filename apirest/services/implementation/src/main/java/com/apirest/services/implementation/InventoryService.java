@@ -30,6 +30,10 @@ public class InventoryService extends BaseApplicationService
 {
     private static Logger _logger = LoggerFactory.getLogger( InventoryService.class );
 
+    /**
+     * Name: supplyInventory
+     * Description: Servicio encargado de agregar el item al inventario.
+     */
     @POST
     @Path("/supply")
     public void supplyInventory( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, InventoryDTO inventoryItem )
@@ -66,6 +70,10 @@ public class InventoryService extends BaseApplicationService
         //endregion
     }
 
+    /**
+     * Name: getAvailableStock
+     * Description: Servicio encargado de consultar el stock actual del inventario
+     */
     @POST
     @Path("/getAvailableStock")
     public List<InventoryDTO> getAvailableStock( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential )
@@ -99,6 +107,10 @@ public class InventoryService extends BaseApplicationService
         return response;
     }
 
+    /**
+     * Name: getAvailableProductStock
+     * Description: Servicio encargado de consultar el stock actual del producto especificado
+     */
     @POST
     @Path("/getAvailableProductStock")
     public List<InventoryDTO> getAvailableProductStock( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential,
