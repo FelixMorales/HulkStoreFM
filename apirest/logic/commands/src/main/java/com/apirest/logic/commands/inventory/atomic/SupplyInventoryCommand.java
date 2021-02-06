@@ -1,23 +1,21 @@
-package com.apirest.logic.commands.user.atomic;
+package com.apirest.logic.commands.inventory.atomic;
 
-import com.apirest.common.EntityFactory;
-import com.apirest.common.entities.User;
+import com.apirest.common.entities.Inventory;
 import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
 import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
-import com.apirest.persistence.dao.UserDAO;
+import com.apirest.persistence.dao.InventoryDAO;
 
-import java.rmi.registry.Registry;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public class AddUserClientCommand extends Command<Boolean>
+public class SupplyInventoryCommand extends Command<Boolean>
 {
-    private User _user;
-    private UserDAO _dao;
+    private Inventory _inventoryItem;
+    private InventoryDAO _dao;
 
-    public AddUserClientCommand( User user )
+    public SupplyInventoryCommand( Inventory inventoryItem )
     {
         //region Instrumentation DEBUG
         //_logger.debug( "entrando a AddUserClientCommand.CTOR: entity {}", entity );
@@ -25,8 +23,8 @@ public class AddUserClientCommand extends Command<Boolean>
 
         createSession( true );
 
-        _user = user;
-        _dao = DAOFactory.createUserDAO( getHandler() );
+        _inventoryItem = inventoryItem;
+        _dao = DAOFactory.createInventoryDAO( getHandler() );
 
         //region Instrumentation DEBUG
         //_logger.debug( "saliendo de AddUserClientCommand.CTOR: _dao {}", _dao );
@@ -40,12 +38,10 @@ public class AddUserClientCommand extends Command<Boolean>
         //_logger.debug( "Entrando a AddUserClientCommand.execute" );
         //endregion
 
-        _user.setRegisterDate( LocalDate.now() );
-        _user.setStatus( MasterStatus.ACTIVE );
-        _user.setType( UserType.CLIENT );
-        _user.setSalt( Security.generateSalt() );
-        _user.setPassword( Security.hashPassword(  _user.getPassword(), _user.getSalt()) );
-        _dao.insert( _user );
+        _inventoryItem.setQuantityAvailable( _inventoryItem.getQuantity() );
+        _inventoryItem.setRegisterDate( LocalDateTime.now() );
+        _inventoryItem.setStatus( MasterStatus.ACTIVE );
+        _dao.insert( _inventoryItem );
 
         //region Instrumentation DEBUG
         //_logger.debug( "Saliendo de AddUserClientCommand.execute" );

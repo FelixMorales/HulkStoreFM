@@ -3,7 +3,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Name: ProductType
+ * Name: ClothesType
  * Description: Entidad que define los tipos de ropa (Camiseta, Pantalones, Gorra)
  */
 

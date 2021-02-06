@@ -1,14 +1,11 @@
 package com.apirest.services.implementation;
 
-import com.apirest.common.EntityFactory;
-import com.apirest.common.entities.Clothes;
+import com.apirest.common.entities.Inventory;
 import com.apirest.common.exceptions.jpa.ConstraintException;
-import com.apirest.common.exceptions.jwt.JWTVerifyException;
-import com.apirest.common.utilities.JWT;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
-import com.apirest.logic.dto.ClothesDTO;
-import com.apirest.logic.mappers.ClothesMapper;
+import com.apirest.logic.dto.InventoryDTO;
+import com.apirest.logic.mappers.InventoryMapper;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.HeaderParam;
@@ -19,30 +16,30 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path( "/product" )
+@Path( "/inventory" )
 @Produces( MediaType.APPLICATION_JSON )
 @Consumes( MediaType.APPLICATION_JSON )
-public class ProductService extends BaseApplicationService
+public class InventoryService extends BaseApplicationService
 {
-    //private static Logger _logger = LoggerFactory.getLogger( UserService.class );
+    //private static Logger _logger = LoggerFactory.getLogger( InventoryService.class );
 
     @POST
-    @Path("/addClothes")
-    public void AddClothes( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, ClothesDTO clothes )
+    @Path("/supply")
+    public void supplyInventory( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, InventoryDTO inventoryItem )
     {
         //region Instrumentation
-        //_logger.debug( "entrando a AddClothes: clothes {}", clothes );
+        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
         //endregion
 
-        Clothes entity;
+        Inventory entity;
 
-        verifyParams( clothes );
+        verifyParams( inventoryItem );
         verifyToken( credential );
 
         try
         {
-            entity = ClothesMapper.mapDtoToEntity( clothes );
-            Command command = CommandFactory.createAddClothesCommand( entity );
+            entity = InventoryMapper.mapDtoToEntity( inventoryItem );
+            Command command = CommandFactory.createSupplyInventoryCommand( entity );
             command.execute();
             command.closeSession();
         }
@@ -58,7 +55,7 @@ public class ProductService extends BaseApplicationService
         }
 
         //region Instrumentation
-        //_logger.debug( "saliendo de AddClothes" );
+        //_logger.debug( "saliendo de supplyInventory" );
         //endregion
     }
 }

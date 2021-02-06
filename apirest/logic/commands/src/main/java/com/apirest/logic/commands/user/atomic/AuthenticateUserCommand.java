@@ -7,6 +7,7 @@ import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
 import com.apirest.logic.commands.Command;
+import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.UserDAO;
 
 public class AuthenticateUserCommand extends Command<User>
@@ -23,7 +24,7 @@ public class AuthenticateUserCommand extends Command<User>
         createSession( true );
 
         _user = user;
-        _dao = new UserDAO( getHandler() );
+        _dao = DAOFactory.createUserDAO( getHandler() );
 
         //region Instrumentation DEBUG
         //_logger.debug( "saliendo de AuthenticateUserCommand.CTOR: _dao {}", _dao );

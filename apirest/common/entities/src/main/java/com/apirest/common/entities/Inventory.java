@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -33,7 +33,7 @@ public class Inventory extends BaseEntity
     private int _quantityAvailable;
 
     @Column( name = "registerDate", nullable = false)
-    private LocalDate _registerDate;
+    private LocalDateTime _registerDate;
 
     @Enumerated
     @Column( name = "status", nullable = false )
@@ -79,12 +79,12 @@ public class Inventory extends BaseEntity
         _quantityAvailable = quantityAvailable;
     }
 
-    public LocalDate getRegisterDate()
+    public LocalDateTime getRegisterDate()
     {
         return _registerDate;
     }
 
-    public void setRegisterDate( LocalDate registerDate )
+    public void setRegisterDate( LocalDateTime registerDate )
     {
         _registerDate = registerDate;
     }

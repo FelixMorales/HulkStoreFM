@@ -31,6 +31,7 @@ public class BaseApplicationService extends Application
             response.add( UserService.class );
             response.add( MiscService.class );
             response.add( ProductService.class );
+            response.add( InventoryService.class );
         }
         catch ( /*ConfigException*/ Exception e )
         {

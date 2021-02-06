@@ -1,12 +1,10 @@
-package com.apirest.logic.commands.clothes.atomic;
+package com.apirest.logic.commands.product.atomic;
 
 import com.apirest.common.entities.Clothes;
-import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
-import com.apirest.enums.UserType;
 import com.apirest.logic.commands.Command;
+import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.ClothesDAO;
-import com.apirest.persistence.dao.UserDAO;
 
 import java.time.LocalDate;
 
@@ -24,7 +22,7 @@ public class AddClothesCommand extends Command<Boolean>
         createSession( true );
 
         _clothes = clothes;
-        _dao = new ClothesDAO( getHandler() );
+        _dao = DAOFactory.createClothesDAO( getHandler() );
 
         //region Instrumentation DEBUG
         //_logger.debug( "saliendo de AddClothesCommand.CTOR: _dao {}", _dao );

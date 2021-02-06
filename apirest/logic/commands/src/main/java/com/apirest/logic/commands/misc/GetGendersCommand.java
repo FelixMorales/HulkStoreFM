@@ -2,6 +2,7 @@ package com.apirest.logic.commands.misc;
 
 import com.apirest.common.entities.Gender;
 import com.apirest.logic.commands.Command;
+import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.GenderDAO;
 import com.apirest.persistence.dao.UserDAO;
 
@@ -20,7 +21,7 @@ public class GetGendersCommand extends Command<List<Gender>>
 
         createSession( false );
 
-        _dao = new GenderDAO( getHandler() );
+        _dao = DAOFactory.createGenderDAO( getHandler() );
 
         //region Instrumentation DEBUG
         //_logger.debug( "saliendo de UpdateEmergencyState.CTOR: _dao {}", _dao );
@@ -30,7 +31,7 @@ public class GetGendersCommand extends Command<List<Gender>>
     @Override
     public void execute()
     {
-        _genders = _dao.findAll();
+        _genders = _dao.findActives();
     }
 
     @Override
