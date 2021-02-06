@@ -39,6 +39,11 @@ public class EntityFactory
         return new Brand();
     }
 
+    public static Brand createBrand(int id)
+    {
+        return new Brand(id);
+    }
+
     public static CartShopItems createCartShopItems(){
        return new CartShopItems(  );
     }
@@ -47,12 +52,24 @@ public class EntityFactory
         return new Clothes(  );
     }
 
+    public static Clothes createClothes(Product product){
+        return new Clothes( product );
+    }
+
     public static ClothesType createClothesType(){
         return new ClothesType(  );
     }
 
+    public static ClothesType createClothesType(int id){
+        return new ClothesType( id );
+    }
+
     public static ClothesSize createClothesSize(){
         return new ClothesSize(  );
+    }
+
+    public static ClothesSize createClothesSize(int id){
+        return new ClothesSize( id );
     }
 
     public static Country createCountry(){
@@ -75,6 +92,10 @@ public class EntityFactory
         return new Hero(  );
     }
 
+    public static Hero createHero(int id){
+        return new Hero( id );
+    }
+
     public static Inventory createInventory(){
         return new Inventory(  );
     }
@@ -83,12 +104,20 @@ public class EntityFactory
         return new MaterialType(  );
     }
 
+    public static MaterialType createMaterialType(int id){
+        return new MaterialType( id );
+    }
+
     public static Product createProduct(){
         return new Product(  );
     }
 
     public static ProductType createProductType(){
         return new ProductType(  );
+    }
+
+    public static ProductType createProductType(int id){
+        return new ProductType( id );
     }
 
     public static Purchase createPurchase(){
@@ -107,6 +136,10 @@ public class EntityFactory
         return new ToyType(  );
     }
 
+    public static ToyType createToyType(int id){
+        return new ToyType( id );
+    }
+
     public static User createUser()
     {
         return new User();
@@ -118,5 +151,9 @@ public class EntityFactory
 
     public static UtensilType createUtensilType(){
         return new UtensilType(  );
+    }
+
+    public static UtensilType createUtensilType(int id){
+        return new UtensilType( id );
     }
 }

@@ -126,6 +126,19 @@ public class Product extends BaseEntity
         super( id );
     }
 
+    public  Product( Product product)
+    {
+        super( product.getId() );
+
+        setName( product.getName() );
+        setCode( product.getCode() );
+        setRegisterDate( product.getRegisterDate() );
+        setHero( product.getHero() );
+        setProductType( product.getProductType() );
+        setBrand( product.getBrand() );
+        setStatus( product.getStatus() );
+    }
+
     @Override
     public boolean equals( Object o )
     {

@@ -1,5 +1,8 @@
 package com.apirest.common.utilities;
 
+import com.apirest.common.exceptions.jwt.JWTCreateException;
+import com.apirest.common.exceptions.jwt.JWTSetKeyException;
+import com.apirest.common.exceptions.jwt.JWTVerifyException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -7,126 +10,92 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class JWT
 {
     private static SecretKey _secretKey;
     private static String _issuer = Registry.getInstance().getProperty( Registry.JWT_ISSUER );
-    private static String _algorithm = Registry.getInstance().getProperty( Registry.JWT_ALGORITHM );
-    private static int _expiration = Integer.parseInt( Registry.getInstance().getProperty( Registry.JWT_EXPIRATION ) );
+    private static int _expiration = Integer.valueOf( Registry.getInstance().getProperty( Registry.JWT_EXPIRATION ) );
 
     //private static Logger _logger = LoggerFactory.getLogger( JWT.class );
 
     static
     {
-        setKey();
+        setKey( Registry.getInstance().getProperty( Registry.JWT_SECRET ) );
     }
 
-    private static void setKey()
+    private static void setKey( String key )
     {
+        MessageDigest sha;
+
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a JWT.setKey" );
+        //_logger.debug( "entrando a JWT.setKey: key {}", key );
         //endregion
 
         try
         {
-            _secretKey = Keys.secretKeyFor( SignatureAlgorithm.forName( _algorithm ) );
+            byte[] bytes = key.getBytes( StandardCharsets.UTF_8 );
+            sha = MessageDigest.getInstance( "SHA-256" );
+
+            _secretKey = Keys.hmacShaKeyFor( sha.digest( bytes ) );
         }
         catch( Exception e )
         {
-            throw e;
-            //throw new JWTSetKeyException( e, e.getMessage() );
+            throw new JWTSetKeyException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de JWT.setKey" );
+        //_logger.debug( "saliendo de JWT.setKey" );
         //endregion
     }
 
-    /**
-     * Name: createToken
-     * Description: Metodo que crea un token JWT en base al subject (see RFC 7519)
-     *
-     * @param subject Subject del JWT (User ID)
-     * @return Token JWT
-     */
-    public static String createToken( String subject )
+    public static String createToken( String subject, String audience )
     {
-        String result = null;
+        String result;
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a JWT.createToken: subject {}", subject );
+        //_logger.debug( "entrando a JWT.createToken: subject {} audience {}", subject, audience );
         //endregion
 
         try
         {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime( new Date(  ) );
-            calendar.add( Calendar.MILLISECOND, _expiration );
+            calendar.add( Calendar.DAY_OF_YEAR, _expiration );
 
             result = Jwts.builder()
                     .setIssuer( _issuer )
                     .setSubject( subject )
+                    .setAudience( audience )
                     .setExpiration( calendar.getTime() )
                     .setNotBefore( new Date(  ) )
                     .setIssuedAt( new Date(  ) )
                     .setId( UUID.randomUUID().toString() )
-                    .signWith( _secretKey, SignatureAlgorithm.forName( _algorithm ) )
+                    .signWith( _secretKey, SignatureAlgorithm.HS256 )
                     .compact();
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new JWTCreateException( e, e.getMessage() );
+            throw new JWTCreateException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de JWT.createToken: token {}", result );
+        //_logger.debug( "saliendo a JWT.createToken: token {}", result );
         //endregion
 
         return result;
     }
 
-    /**
-     * Name: verifyToken
-     * Description: Metodo que valida si el token JWT es valido
-     *
-     * @param token Token JWT
-     * @param subject Subject del JWT (User ID)
-     */
-    public static void verifyToken( String token, String subject )
+    public static List<String> verifyToken( String token )
     {
-        //region Instrumentation DEBUG
-        //_logger.debug( "Entrando a JWT.verifyToken: token {}, subject {}", token, subject );
-        //endregion
-
-        try
-        {
-            Jwts.parser()
-                    .requireSubject( subject )
-                    .requireIssuer( _issuer )
-                    .setSigningKey( _secretKey )
-                    .parseClaimsJws( token );
-        }
-        catch ( Exception e )
-        {
-            //_logger.error( e.getMessage(), e );
-
-            throw e;
-            //throw new JWTVerifyException( e, e.getMessage() );
-        }
-
-        //region Instrumentation DEBUG
-        //_logger.debug( "Saliendo de JWT.verifyToken" );
-        //endregion
-    }
-
-    public static String verifyToken(String token )
-    {
-        String result = "";
+        List<String> result = new ArrayList<>(  );
 
         //region Instrumentation DEBUG
         //_logger.debug( "entrando a JWT.createToken: token {}", token );
@@ -139,14 +108,12 @@ public class JWT
                     .setSigningKey( _secretKey )
                     .parseClaimsJws( token );
 
-            result = claims.getBody().getSubject();
+            result.add( claims.getBody().getSubject() );
+            result.add( claims.getBody().getAudience() );
         }
         catch ( Exception e )
         {
-            //_logger.error( e.getMessage(), e );
-
-            throw e;
-            //throw new JWTVerifyException( e, e.getMessage() );
+            throw new JWTVerifyException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG

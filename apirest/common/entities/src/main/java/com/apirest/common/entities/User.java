@@ -7,10 +7,12 @@ import com.apirest.enums.UserType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -45,10 +47,10 @@ public class User extends BaseEntity
     @JoinColumn( name = "idCountry", nullable = false )
     private Country _country;
 
-    @OneToMany( mappedBy = "_user" )
+    @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
     private List<CartShopItems> _cartShopItems;
 
-    @OneToMany( mappedBy = "_user" )
+    @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
     private List<Purchase> _purchases;
 
     @Enumerated
@@ -58,6 +60,9 @@ public class User extends BaseEntity
     @Enumerated
     @Column( name = "type", nullable = false )
     private UserType _type;
+
+    @Transient
+    private String _token;
 
     public List<CartShopItems> getCartShopItems()
     {
@@ -179,6 +184,16 @@ public class User extends BaseEntity
         _salt = salt;
     }
 
+    public String getToken()
+    {
+        return _token;
+    }
+
+    public void setToken( String token )
+    {
+        _token = token;
+    }
+
     public User()
     {
     }
@@ -204,18 +219,14 @@ public class User extends BaseEntity
             return false;
         }
         User user = ( User ) o;
-        return _name.equals( user._name ) && _lastName.equals( user._lastName ) && _email.equals( user._email ) &&
-               _password.equals( user._password ) && Objects.equals( _salt, user._salt ) &&
-               _registerDate.equals( user._registerDate ) && _gender.equals( user._gender ) &&
-               _country.equals( user._country ) && _status == user._status && _type == user._type;
+        return _email.equals( user._email );
     }
 
     @Override
     public int hashCode()
     {
         return Objects
-                .hash( super.hashCode(), _name, _lastName, _email, _password, _salt, _registerDate, _gender, _country,
-                       _status, _type );
+                .hash( super.hashCode(), _email );
     }
 
     @Override
@@ -231,6 +242,7 @@ public class User extends BaseEntity
         sb.append( ", _status='" ).append( _status );
         sb.append( ", _type='" ).append( _type );
         sb.append( ", _registerDate='" ).append( _registerDate );
+        sb.append( ", _token='" ).append( _token );
         sb.append( '}' );
         return sb.toString();
     }

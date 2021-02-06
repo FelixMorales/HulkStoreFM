@@ -5,6 +5,7 @@ import com.apirest.enums.PurchaseStatus;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -44,7 +45,7 @@ public class Purchase extends BaseEntity
     @Column( name = "status", nullable = false )
     private PurchaseStatus _status;
 
-    @OneToMany( mappedBy = "_purchase" )
+    @OneToMany( mappedBy = "_purchase", fetch = FetchType.LAZY )
     private List<PurchaseDetail> _purchaseDetailList;
 
     public User getUser()

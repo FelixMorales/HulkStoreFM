@@ -1,6 +1,8 @@
 package com.apirest.logic.commands;
 
+import com.apirest.common.entities.Clothes;
 import com.apirest.common.entities.User;
+import com.apirest.logic.commands.clothes.atomic.AddClothesCommand;
 import com.apirest.logic.commands.user.atomic.AddUserClientCommand;
 import com.apirest.logic.commands.user.atomic.AuthenticateUserCommand;
 
@@ -14,5 +16,10 @@ public class CommandFactory
     public static AuthenticateUserCommand createAuthenticateUserCommand( User user )
     {
         return new AuthenticateUserCommand( user );
+    }
+
+    public static AddClothesCommand createAddClothesCommand( Clothes clothes )
+    {
+        return new AddClothesCommand( clothes );
     }
 }

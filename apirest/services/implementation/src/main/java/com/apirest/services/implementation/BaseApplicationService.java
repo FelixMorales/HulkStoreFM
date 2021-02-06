@@ -1,6 +1,6 @@
 package com.apirest.services.implementation;
 
-
+import com.apirest.common.exceptions.jwt.JWTVerifyException;
 import com.apirest.common.utilities.JWT;
 import com.apirest.common.utilities.Registry;
 
@@ -30,6 +30,7 @@ public class BaseApplicationService extends Application
             Registry.getInstance();
             response.add( UserService.class );
             response.add( MiscService.class );
+            response.add( ClothesService.class );
         }
         catch ( /*ConfigException*/ Exception e )
         {
@@ -46,25 +47,6 @@ public class BaseApplicationService extends Application
     }
 
     /**
-     * Metodo que inicia la validacion del JWT
-     * @param credential JWT proveido por el usuario
-     * @param userId id del usuario
-     */
-    private void validateCredentials(String credential, String userId )
-    {
-        try
-        {
-            JWT.verifyToken( credential, userId );
-        }
-        catch ( /*JWTVerifyException e */ Exception e )
-        {
-            //_logger.error( e.getMessage(), e );
-            throwException( Response.Status.UNAUTHORIZED, e );
-        }
-    }
-
-
-    /**
      * Metodo que valida que el parametro proveido al servicio no sea nulo
      * @param object parametro que fue enviado al servicio
      */
@@ -72,6 +54,20 @@ public class BaseApplicationService extends Application
     {
         if ( object == null )
             throwException( Response.Status.BAD_REQUEST );
+    }
+
+    void verifyToken( String token )
+    {
+        try
+        {
+            JWT.verifyToken( token );
+        }
+        catch ( JWTVerifyException e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.UNAUTHORIZED, e );
+        }
+
     }
 
     /**

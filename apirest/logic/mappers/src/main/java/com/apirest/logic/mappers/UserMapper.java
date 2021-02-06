@@ -10,11 +10,11 @@ import java.time.LocalDate;
 
 public class UserMapper
 {
-    //private static Logger _logger = LoggerFactory.getLogger( BankMapper.class );
+    //private static Logger _logger = LoggerFactory.getLogger( UserMapper.class );
 
     public static User mapDtoToEntity( UserDTO dto )
     {
-        User entity = EntityFactory.createUser( );
+        final User entity = EntityFactory.createUser( );
 
         //region Instrumentation DEBUG
         //_logger.debug( "Entrando a UserMapper.mapDtoToEntity: dto {}", dto );
@@ -28,6 +28,7 @@ public class UserMapper
         entity.setSalt( dto._salt );
         entity.setStatus( MasterStatus.valueOf( dto._status ) );
         entity.setType( UserType.valueOf( dto._type ) );
+        entity.setToken( dto._token );
 
         if(dto._gender != null)
             entity.setGender( EntityFactory.createGender( dto._gender._id ) );
@@ -47,7 +48,7 @@ public class UserMapper
 
     public static UserDTO mapEntityToDto( User entity )
     {
-        UserDTO dto = new UserDTO();
+        final UserDTO dto = new UserDTO();
 
         //region Instrumentation DEBUG
         //_logger.debug( "Entrando a UserMapper.mapEntityToDto: entity {}", entity );
@@ -64,6 +65,7 @@ public class UserMapper
         dto._country = MasterMapper.mapEntityToDTO( entity.getCountry() );
         dto._gender = MasterMapper.mapEntityToDTO( entity.getGender() );
         dto._registerDate = entity.getRegisterDate().toString();
+        dto._token = entity.getToken();
 
         //region Instrumentation DEBUG
         //_logger.debug( "Saliendo de UserMapper.mapEntityToDto: dto {}", dto );

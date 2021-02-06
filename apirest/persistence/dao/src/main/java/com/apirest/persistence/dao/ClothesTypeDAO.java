@@ -1,8 +1,9 @@
 package com.apirest.persistence.dao;
 
-import com.apirest.common.entities.User;
+import com.apirest.common.entities.ClothesType;
 import com.apirest.common.exceptions.jpa.FindException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
+import com.apirest.enums.MasterStatus;
 import com.apirest.persistence.DBHandler;
 
 import javax.persistence.EntityManager;
@@ -10,13 +11,14 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
-public class UserDAO extends BaseDAO<User>
+public class ClothesTypeDAO extends BaseDAO<ClothesType>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
 
-    public UserDAO( DBHandler handler )
+    public ClothesTypeDAO( DBHandler handler )
     {
         super( handler );
 
@@ -25,29 +27,28 @@ public class UserDAO extends BaseDAO<User>
     }
 
     /**
-     * Name: findByEmail
-     * Description: Metodo que retorna el usuario encrontado por email
+     * Name: findActives
+     * Description: Metodo que retorna la lista de tipos de ropa activas
      *
-     * @param user Username
-     * @return User object
+     * @return Lista de objeto ClothesType
      */
-    public User findByEmail( User user )
+    public List<ClothesType> findActives( )
     {
-        User result;
+        List<ClothesType> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a UserDao.findByEmail user {}", user );
+        //_logger.debug( "Entrando a ClothesTypeDAO.findActives");
         //endregion
 
         try
         {
-            CriteriaQuery<User> query = _builder.createQuery( User.class );
-            Root<User> root = query.from( User.class );
+            CriteriaQuery<ClothesType> query = _builder.createQuery( ClothesType.class );
+            Root<ClothesType> root = query.from( ClothesType.class );
 
             query.select( root );
-            query.where( _builder.equal( root.get( "_email" ), user.getEmail() ) );
+            query.where( _builder.equal( root.get( "_status" ), MasterStatus.ACTIVE ) );
 
-            result = _em.createQuery( query ).getSingleResult();
+            result = _em.createQuery( query ).getResultList();
         }
         catch ( NoResultException e )
         {
@@ -59,7 +60,7 @@ public class UserDAO extends BaseDAO<User>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de UserDao.findByEmail result {}", result );
+        //_logger.debug( "Saliendo de ClothesTypeDAO.findActives result {}", result );
         //endregion
 
         return result;

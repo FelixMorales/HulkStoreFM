@@ -5,11 +5,9 @@ import java.util.Properties;
 
 public class Registry
 {
+    static final String JWT_SECRET = "jwt.secret";
     static final String JWT_ISSUER = "jwt.issuer";
-    static final String JWT_ALGORITHM = "jwt.algorithm";
     static final String JWT_EXPIRATION = "jwt.expiration";
-
-    public static final String CLIENT_SALT = "web.salt";
 
     public static final String SEC_SALT_LENGTH = "sec.saltLength";
     public static final String SEC_ENCRYPT_ALGORITHM = "sec.algorithm";

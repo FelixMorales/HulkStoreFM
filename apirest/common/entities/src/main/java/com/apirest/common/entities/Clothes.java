@@ -65,6 +65,11 @@ public class Clothes extends Product
         super( id );
     }
 
+    public Clothes( Product product )
+    {
+        super( product );
+    }
+
     @Override
     public boolean equals( Object o )
     {

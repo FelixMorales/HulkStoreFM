@@ -13,6 +13,7 @@ public class UserDTO
     public String _registerDate;
     public int _status;
     public int _type;
+    public String _token;
 
     public MasterDTO _gender;
     public MasterDTO _country;
@@ -33,6 +34,7 @@ public class UserDTO
         sb.append( "_type=" ).append( _type );
         sb.append( "_gender=" ).append( _gender );
         sb.append( "_country=" ).append( _country );
+        sb.append( "_token=" ).append( _token );
         sb.append( '}' );
         return sb.toString();
     }

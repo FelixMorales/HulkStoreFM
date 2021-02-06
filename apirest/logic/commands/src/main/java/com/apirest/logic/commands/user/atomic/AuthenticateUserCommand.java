@@ -2,6 +2,7 @@ package com.apirest.logic.commands.user.atomic;
 
 import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.security.WrongCredentialsException;
+import com.apirest.common.utilities.JWT;
 import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
 import com.apirest.enums.UserType;
@@ -44,6 +45,8 @@ public class AuthenticateUserCommand extends Command<User>
         }
 
         _user = entity;
+        _user.setToken( JWT.createToken( String.valueOf( _user.getType().getValue() ),
+                                         String.valueOf( _user.getId() ) ) );
 
         //region Instrumentation DEBUG
         //_logger.debug( "Saliendo de AuthenticateUserCommand.execute" );
