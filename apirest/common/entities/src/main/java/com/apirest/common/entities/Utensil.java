@@ -51,6 +51,10 @@ public class Utensil extends Product
         super( id );
     }
 
+    public Utensil( Product product ){
+        super(product);
+    }
+
     @Override
     public boolean equals( Object o )
     {

@@ -29,9 +29,19 @@ public class EntityFactory
         return new Accessories();
     }
 
+    public static Accessories createAccessories(Product product)
+    {
+        return new Accessories( product );
+    }
+
     public static AccessoryType createAccessoryTypes()
     {
         return new AccessoryType();
+    }
+
+    public static AccessoryType createAccessoryTypes(int id)
+    {
+        return new AccessoryType(id);
     }
 
     public static Brand createBrand()
@@ -132,6 +142,9 @@ public class EntityFactory
         return new Toy(  );
     }
 
+    public static Toy createToy( Product product ){
+        return new Toy( product );
+    }
     public static ToyType createToyType(){
         return new ToyType(  );
     }
@@ -147,6 +160,10 @@ public class EntityFactory
 
     public static Utensil createUtensil(){
         return new Utensil(  );
+    }
+
+    public static Utensil createUtensil(Product product){
+        return new Utensil( product );
     }
 
     public static UtensilType createUtensilType(){

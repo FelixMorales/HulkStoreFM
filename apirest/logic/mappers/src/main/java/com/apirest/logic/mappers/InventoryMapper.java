@@ -2,15 +2,11 @@ package com.apirest.logic.mappers;
 
 import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.Inventory;
-import com.apirest.common.entities.User;
 import com.apirest.enums.MasterStatus;
-import com.apirest.enums.UserType;
 import com.apirest.logic.dto.InventoryDTO;
-import com.apirest.logic.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -64,6 +64,11 @@ public class Toy extends Product
         super( id );
     }
 
+    public Toy( Product product )
+    {
+        super( product );
+    }
+
     @Override
     public boolean equals( Object o )
     {

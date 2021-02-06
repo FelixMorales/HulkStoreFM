@@ -51,6 +51,11 @@ public class Accessories extends Product
         super( id );
     }
 
+    public Accessories( Product product )
+    {
+        super( product );
+    }
+
 
     @Override
     public boolean equals( Object o )

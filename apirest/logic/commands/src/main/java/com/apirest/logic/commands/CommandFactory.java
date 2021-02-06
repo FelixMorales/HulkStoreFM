@@ -3,12 +3,13 @@ package com.apirest.logic.commands;
 import com.apirest.common.entities.Product;
 import com.apirest.common.entities.Purchase;
 import com.apirest.common.entities.ShopCartItem;
-import com.apirest.common.entities.Clothes;
 import com.apirest.common.entities.Inventory;
 import com.apirest.common.entities.User;
 import com.apirest.logic.commands.inventory.atomic.GetAllAvailableStockCommand;
 import com.apirest.logic.commands.inventory.atomic.GetAvailableProductStockCommand;
 import com.apirest.logic.commands.inventory.atomic.GetInventoryStockCommand;
+import com.apirest.logic.commands.product.atomic.AddProductCommand;
+import com.apirest.logic.commands.product.atomic.GetProductsCommand;
 import com.apirest.logic.commands.purchase.atomic.AddPurchaseCommand;
 import com.apirest.logic.commands.purchase.composite.ExecutePurchaseCommand;
 import com.apirest.logic.commands.purchase.composite.GeneratePurchaseDetailCommand;
@@ -16,7 +17,6 @@ import com.apirest.logic.commands.shopCartItem.AddShopCartItemCommand;
 import com.apirest.logic.commands.shopCartItem.ClearShopCartItemsUserCommand;
 import com.apirest.logic.commands.shopCartItem.GetShopCartItemsByUserCommand;
 import com.apirest.logic.commands.inventory.atomic.SupplyInventoryCommand;
-import com.apirest.logic.commands.product.atomic.AddClothesCommand;
 import com.apirest.logic.commands.user.atomic.AddUserClientCommand;
 import com.apirest.logic.commands.user.atomic.AuthenticateUserCommand;
 import com.apirest.persistence.DBHandler;
@@ -33,9 +33,9 @@ public class CommandFactory
         return new AuthenticateUserCommand( user );
     }
 
-    public static AddClothesCommand createAddClothesCommand( Clothes clothes )
+    public static AddProductCommand createAddProductCommand( Product product )
     {
-        return new AddClothesCommand( clothes );
+        return new AddProductCommand( product );
     }
 
     public static SupplyInventoryCommand createSupplyInventoryCommand( Inventory inventoryItem )
@@ -101,5 +101,10 @@ public class CommandFactory
     public static GetAvailableProductStockCommand createGetAvailableProductStockCommand( Product product )
     {
         return new GetAvailableProductStockCommand( product );
+    }
+
+    public static GetProductsCommand createGetProductsCommand( )
+    {
+        return new GetProductsCommand( );
     }
 }

@@ -5,7 +5,6 @@ import com.apirest.persistence.dao.BrandDAO;
 import com.apirest.persistence.dao.PurchaseDAO;
 import com.apirest.persistence.dao.PurchaseDetailDAO;
 import com.apirest.persistence.dao.ShopCartItemDAO;
-import com.apirest.persistence.dao.ClothesDAO;
 import com.apirest.persistence.dao.ClothesSizeDAO;
 import com.apirest.persistence.dao.ClothesTypeDAO;
 import com.apirest.persistence.dao.CountryDAO;
@@ -29,11 +28,6 @@ public class DAOFactory
     public static BrandDAO createBrandDAO(DBHandler handler)
     {
         return new BrandDAO( handler );
-    }
-
-    public static ClothesDAO createClothesDAO(DBHandler handler)
-    {
-        return new ClothesDAO( handler );
     }
 
     public static ClothesSizeDAO createClothesSizeDAOO(DBHandler handler)

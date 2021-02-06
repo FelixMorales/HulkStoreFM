@@ -2,15 +2,14 @@ package com.apirest.logic.mappers;
 
 import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.Product;
-import com.apirest.common.entities.User;
 import com.apirest.enums.MasterStatus;
-import com.apirest.enums.UserType;
 import com.apirest.logic.dto.ProductDTO;
-import com.apirest.logic.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductMapper
 {
@@ -71,5 +70,25 @@ public class ProductMapper
         //endregion
 
         return dto;
+    }
+
+    public static List<ProductDTO> mapEntityListToDTOList( List<Product> entityList )
+    {
+        final List<ProductDTO> dtoList = new ArrayList<>();
+
+        //region Instrumentation DEBUG
+        _logger.debug( "entrando a ProductMapper.mapEntityListToDTOList: size {}, lista {}",
+                       entityList.size(), entityList );
+        //endregion
+
+        for ( Product entity : entityList )
+            dtoList.add( mapEntityToDto( entity ) );
+
+        //region Instrumentation DEBUG
+        _logger.debug( "saliendo de ProductMapper.mapEntityListToDTOList: size {}, lista {}",
+                       dtoList.size(), dtoList );
+        //endregion
+
+        return dtoList;
     }
 }
