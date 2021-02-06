@@ -50,3 +50,7 @@ INSERT INTO TOYTYPE (description, status) VALUES ('carro', 1);
 -- Tipos de utensilios
 INSERT INTO UTENSILTYPE (description, status) VALUES ('vaso', 1);
 INSERT INTO UTENSILTYPE (description, status) VALUES ('plato', 0);
+
+-- Tipos de accesorios
+INSERT INTO ACCESSORYTYPE (description, status) VALUES ('reloj', 1);
+INSERT INTO ACCESSORYTYPE (description, status) VALUES ('lentes', 1);
