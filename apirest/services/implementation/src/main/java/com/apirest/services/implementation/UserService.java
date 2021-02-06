@@ -1,15 +1,17 @@
 package com.apirest.services.implementation;
 
+import com.apirest.common.entities.CartShopItem;
 import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.jpa.ConstraintException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.logic.commands.Command;
 import com.apirest.logic.commands.CommandFactory;
+import com.apirest.logic.dto.CartShopItemDTO;
 import com.apirest.logic.dto.UserDTO;
+import com.apirest.logic.mappers.CartShopItemMapper;
 import com.apirest.logic.mappers.UserMapper;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path( "/user" )
 @Produces( MediaType.APPLICATION_JSON )
@@ -96,6 +99,79 @@ public class UserService extends BaseApplicationService
 
         //region Instrumentation
         //_logger.debug( "saliendo de Authenticate: response {}", response );
+        //endregion
+
+        return response;
+    }
+
+    @POST
+    @Path("/addCartShopItem")
+    public void addCartShopItem( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, CartShopItemDTO item )
+    {
+        //region Instrumentation
+        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        //endregion
+
+        CartShopItem entity;
+
+        verifyParams( item );
+        verifyToken( credential );
+
+        try
+        {
+            entity = CartShopItemMapper.mapDtoToEntity( item );
+            Command command = CommandFactory.createAddCartShopItemCommand( entity );
+            command.execute();
+            command.closeSession();
+        }
+        catch ( ConstraintException e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.BAD_REQUEST, e );
+        }
+        catch ( Exception e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
+        }
+
+        //region Instrumentation
+        //_logger.debug( "saliendo de supplyInventory" );
+        //endregion
+    }
+
+    @POST
+    @Path("/getCartShopItems")
+    public List<CartShopItemDTO> getCartShopItems( @HeaderParam( HttpHeaders.AUTHORIZATION ) String credential, UserDTO user )
+    {
+        //region Instrumentation
+        //_logger.debug( "entrando a supplyInventory: inventoryItem {}", inventoryItem );
+        //endregion
+
+        User entity;
+        List<CartShopItemDTO> response  = null;
+        Command<List<CartShopItem>> command;
+
+        verifyParams( user );
+        verifyToken( credential );
+
+        try
+        {
+            entity = UserMapper.mapDtoToEntity( user );
+            command = CommandFactory.createGetCartShopItemsByUser( entity );
+            command.execute();
+            command.closeSession();
+
+            response = CartShopItemMapper.mapEntityListToDTOList( command.getReturnParam() );
+        }
+        catch ( Exception e )
+        {
+            //_logger.error( e.getMessage(), e );
+            throwException( Response.Status.INTERNAL_SERVER_ERROR, e );
+        }
+
+        //region Instrumentation
+        //_logger.debug( "saliendo de supplyInventory" );
         //endregion
 
         return response;

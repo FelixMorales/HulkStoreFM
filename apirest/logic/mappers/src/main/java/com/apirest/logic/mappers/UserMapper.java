@@ -58,8 +58,6 @@ public class UserMapper
         dto._name = entity.getName();
         dto._lastName = entity.getLastName();
         dto._email = entity.getEmail();
-        dto._password = entity.getPassword();
-        dto._salt = entity.getSalt();
         dto._type = entity.getType().getValue();
         dto._status = entity.getStatus().getValue();
         dto._country = MasterMapper.mapEntityToDTO( entity.getCountry() );

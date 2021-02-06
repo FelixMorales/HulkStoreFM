@@ -1,6 +1,7 @@
 package com.apirest.persistence.dao;
 
 import com.apirest.common.entities.ToyType;
+import com.apirest.common.exceptions.jpa.FindAllException;
 import com.apirest.common.exceptions.jpa.FindException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
 import com.apirest.enums.MasterStatus;
@@ -50,13 +51,9 @@ public class ToyTypeDAO extends BaseDAO<ToyType>
 
             result = _em.createQuery( query ).getResultList();
         }
-        catch ( NoResultException e )
-        {
-            throw new NotFoundException( e, e.getMessage() );
-        }
         catch ( Exception e )
         {
-            throw new FindException( e, e.getMessage() );
+            throw new FindAllException( e, e.getMessage() );
         }
 
         //region Instrumentation

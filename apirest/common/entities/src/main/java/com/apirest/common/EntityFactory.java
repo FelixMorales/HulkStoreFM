@@ -3,7 +3,7 @@ package com.apirest.common;
 import com.apirest.common.entities.Accessories;
 import com.apirest.common.entities.AccessoryType;
 import com.apirest.common.entities.Brand;
-import com.apirest.common.entities.CartShopItems;
+import com.apirest.common.entities.CartShopItem;
 import com.apirest.common.entities.Clothes;
 import com.apirest.common.entities.ClothesSize;
 import com.apirest.common.entities.ClothesType;
@@ -44,8 +44,8 @@ public class EntityFactory
         return new Brand(id);
     }
 
-    public static CartShopItems createCartShopItems(){
-       return new CartShopItems(  );
+    public static CartShopItem createCartShopItem(){
+       return new CartShopItem(  );
     }
 
     public static Clothes createClothes(){

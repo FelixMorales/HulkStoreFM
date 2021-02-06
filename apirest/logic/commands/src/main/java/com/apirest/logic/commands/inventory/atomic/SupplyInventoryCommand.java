@@ -10,6 +10,10 @@ import com.apirest.persistence.dao.InventoryDAO;
 
 import java.time.LocalDateTime;
 
+/**
+ * Name: GetCartShopItemsByUser
+ * Description: Comando encargado de agregar un producto al inventario.
+ */
 public class SupplyInventoryCommand extends Command<Boolean>
 {
     private Inventory _inventoryItem;

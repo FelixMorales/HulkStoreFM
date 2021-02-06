@@ -1,6 +1,7 @@
 package com.apirest.persistence.dao;
 
-import com.apirest.common.entities.UtensilType;
+import com.apirest.common.entities.CartShopItem;
+import com.apirest.common.entities.User;
 import com.apirest.common.exceptions.jpa.FindAllException;
 import com.apirest.common.exceptions.jpa.FindException;
 import com.apirest.common.exceptions.jpa.NotFoundException;
@@ -14,12 +15,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class UtensilTypeDAO extends BaseDAO<UtensilType>
+public class CartShopItemDAO extends BaseDAO<CartShopItem>
 {
     private EntityManager _em;
     private CriteriaBuilder _builder;
 
-    public UtensilTypeDAO( DBHandler handler )
+    public CartShopItemDAO( DBHandler handler )
     {
         super( handler );
 
@@ -28,26 +29,26 @@ public class UtensilTypeDAO extends BaseDAO<UtensilType>
     }
 
     /**
-     * Name: findActives
-     * Description: Metodo que retorna la lista de tipos de juguetes activos
+     * Name: findByUser
+     * Description: Metodo que retorna la lista de items del carrito de un usuario.
      *
-     * @return Lista de objeto ToyType
+     * @return Lista de objeto Hero
      */
-    public List<UtensilType> findActives( )
+    public List<CartShopItem> findByUser( User user )
     {
-        List<UtensilType> result;
+        List<CartShopItem> result;
 
         //region Instrumentation
-        //_logger.debug( "Entrando a ToyTypeDAO.findActives");
+        //_logger.debug( "Entrando a HeroDAO.findActives");
         //endregion
 
         try
         {
-            CriteriaQuery<UtensilType> query = _builder.createQuery( UtensilType.class );
-            Root<UtensilType> root = query.from( UtensilType.class );
+            CriteriaQuery<CartShopItem> query = _builder.createQuery( CartShopItem.class );
+            Root<CartShopItem> root = query.from( CartShopItem.class );
 
             query.select( root );
-            query.where( _builder.equal( root.get( "_status" ), MasterStatus.ACTIVE ) );
+            query.where( _builder.equal( root.get( "_user" ), user.getId() ) );
 
             result = _em.createQuery( query ).getResultList();
         }
@@ -57,7 +58,7 @@ public class UtensilTypeDAO extends BaseDAO<UtensilType>
         }
 
         //region Instrumentation
-        //_logger.debug( "Saliendo de ToyTypeDAO.findActives result {}", result );
+        //_logger.debug( "Saliendo de HeroDAO.findActives result {}", result );
         //endregion
 
         return result;

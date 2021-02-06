@@ -1,7 +1,6 @@
 package com.apirest.common.entities;
 
 import com.apirest.enums.MasterStatus;
-import com.apirest.enums.PurchaseStatus;
 import com.apirest.enums.UserType;
 
 import javax.persistence.Column;
@@ -48,7 +47,7 @@ public class User extends BaseEntity
     private Country _country;
 
     @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
-    private List<CartShopItems> _cartShopItems;
+    private List<CartShopItem> _cartShopItems;
 
     @OneToMany( mappedBy = "_user", fetch = FetchType.LAZY )
     private List<Purchase> _purchases;
@@ -64,12 +63,12 @@ public class User extends BaseEntity
     @Transient
     private String _token;
 
-    public List<CartShopItems> getCartShopItems()
+    public List<CartShopItem> getCartShopItems()
     {
         return _cartShopItems;
     }
 
-    public void setCartShopItems( List<CartShopItems> cartShopItems )
+    public void setCartShopItems( List<CartShopItem> cartShopItems )
     {
         _cartShopItems = cartShopItems;
     }

@@ -8,6 +8,10 @@ import com.apirest.persistence.dao.ClothesDAO;
 
 import java.time.LocalDate;
 
+/**
+ * Name: GetCartShopItemsByUser
+ * Description: Comando encargado de agregar un producto de tipo ropa.
+ */
 public class AddClothesCommand extends Command<Boolean>
 {
     private Clothes _clothes;

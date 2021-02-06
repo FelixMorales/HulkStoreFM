@@ -1,5 +1,12 @@
 package com.apirest.persistence.dao;
 
+import com.apirest.common.exceptions.jpa.AddException;
+import com.apirest.common.exceptions.jpa.ConstraintException;
+import com.apirest.common.exceptions.jpa.DeleteException;
+import com.apirest.common.exceptions.jpa.DetachException;
+import com.apirest.common.exceptions.jpa.FindAllException;
+import com.apirest.common.exceptions.jpa.FindException;
+import com.apirest.common.exceptions.jpa.UpdateException;
 import com.apirest.persistence.DBHandler;
 
 import javax.persistence.EntityManager;
@@ -44,13 +51,11 @@ public abstract class BaseDAO<T>
         }
         catch ( PersistenceException | IllegalStateException e )
         {
-            throw e;
-            //throw new ConstraintException( e, e.getMessage() );
+            throw new ConstraintException( e, e.getMessage() );
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new AddException( e, e.getMessage() );
+            throw new AddException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
@@ -81,13 +86,11 @@ public abstract class BaseDAO<T>
         }
         catch ( PersistenceException | IllegalStateException e )
         {
-            throw e;
-            //throw new ConstraintException( e, e.getMessage() );
+            throw new ConstraintException( e, e.getMessage() );
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new UpdateException( e, e.getMessage() );
+            throw new UpdateException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
@@ -118,8 +121,7 @@ public abstract class BaseDAO<T>
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new DeleteException( e, e.getMessage() );
+            throw new DeleteException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
@@ -159,8 +161,7 @@ public abstract class BaseDAO<T>
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new FindAllException( e, e.getMessage() );
+            throw new FindAllException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
@@ -190,8 +191,7 @@ public abstract class BaseDAO<T>
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new FindException( e, e.getMessage() );
+            throw new FindException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG
@@ -221,8 +221,7 @@ public abstract class BaseDAO<T>
         }
         catch ( Exception e )
         {
-            throw e;
-            //throw new DetachException( e, e.getMessage() );
+            throw new DetachException( e, e.getMessage() );
         }
 
         //region Instrumentation DEBUG

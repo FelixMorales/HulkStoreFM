@@ -1,6 +1,5 @@
 package com.apirest.logic.commands.user.atomic;
 
-import com.apirest.common.EntityFactory;
 import com.apirest.common.entities.User;
 import com.apirest.common.utilities.Security;
 import com.apirest.enums.MasterStatus;
@@ -9,9 +8,12 @@ import com.apirest.logic.commands.Command;
 import com.apirest.persistence.DAOFactory;
 import com.apirest.persistence.dao.UserDAO;
 
-import java.rmi.registry.Registry;
 import java.time.LocalDate;
 
+/**
+ * Name: GetCartShopItemsByUser
+ * Description: Comando encargado de registrar un usuario tipo cliente.
+ */
 public class AddUserClientCommand extends Command<Boolean>
 {
     private User _user;

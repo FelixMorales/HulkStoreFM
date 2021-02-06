@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -13,8 +14,9 @@ import java.util.Objects;
  * Description: Entidad que define el Carrito de Compra de los usuarios.
  */
 @Entity
-@Table( name = "CARTSHOPITEMS" )
-public class CartShopItems extends BaseEntity
+@Table( name = "CARTSHOPITEM", uniqueConstraints={
+        @UniqueConstraint(columnNames = {"idProduct", "idUser"} ) } )
+public class CartShopItem extends BaseEntity
 {
     @ManyToOne
     @JoinColumn( name = "idProduct", nullable = false  )
@@ -70,11 +72,11 @@ public class CartShopItems extends BaseEntity
         _registerDate = registerDate;
     }
 
-    public CartShopItems()
+    public CartShopItem()
     {
     }
 
-    public CartShopItems( int id )
+    public CartShopItem( int id )
     {
         super( id );
     }
@@ -94,7 +96,7 @@ public class CartShopItems extends BaseEntity
         {
             return false;
         }
-        CartShopItems cartShopItems = ( CartShopItems ) o;
+        CartShopItem cartShopItems = ( CartShopItem ) o;
         return _quantity == cartShopItems._quantity && _product.equals( cartShopItems._product ) &&
                _user.equals( cartShopItems._user ) && _registerDate.equals( cartShopItems._registerDate );
     }
@@ -108,7 +110,7 @@ public class CartShopItems extends BaseEntity
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder( "CartShopItems{" );
+        final StringBuilder sb = new StringBuilder( "CartShopItem{" );
         sb.append( super.toString() );
         sb.append( ", _registerDate='" ).append( _registerDate );
         sb.append( ", _user='" ).append( _user );
