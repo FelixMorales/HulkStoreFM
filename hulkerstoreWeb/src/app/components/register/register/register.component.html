@@ -1,0 +1,13 @@
+<p>Registro de usuario (cliente)</p>
+<input placeholder="nombre" type="text" name="name" [(ngModel)]="user._name">
+<br>
+<input placeholder="apellido" type="text" name="lastName" [(ngModel)]="user._lastName">
+<br>
+<input placeholder="correo" type="text" name="correo" [(ngModel)]="user._email">
+<br>
+<input placeholder="password" type="password" name="correo" [(ngModel)]="user._password">
+<br>
+<button (click)="registrarse()">Registrarse</button>
+<br>
+<br>
+<button [routerLink]="['/']">Volver</button>
